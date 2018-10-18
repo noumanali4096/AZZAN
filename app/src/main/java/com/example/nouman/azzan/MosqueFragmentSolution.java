@@ -34,6 +34,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -127,6 +128,7 @@ public class MosqueFragmentSolution extends Fragment implements com.google.andro
                                     MarkerOptions options = new MarkerOptions()
                                             .position(latLng)
                                             .title(obj.getName());
+                                    options.icon(BitmapDescriptorFactory.fromResource(R.drawable.mosque));
                                     mMarker =  mgoogleMap.addMarker(options);
                                     markerList.put(obj.getPhone(),mMarker);
                                 }
@@ -165,7 +167,9 @@ public class MosqueFragmentSolution extends Fragment implements com.google.andro
                                            if(prayerTimmings!=null)
                                            {
                                                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                                               BottomSheetDialog.newInstance(prayerTimmings,mMarker.getTitle()).show(transaction, "bottomsheet");
+                                               BottomSheetDialog.newInstance(prayerTimmings,mMarker.getTitle(),
+                                                       currentLocationMarker.getPosition().latitude,currentLocationMarker.getPosition().longitude,
+                                                       mMarker.getPosition().latitude,mMarker.getPosition().longitude).show(transaction, "bottomsheet");
                                            }
                                        }
 
@@ -287,7 +291,7 @@ public class MosqueFragmentSolution extends Fragment implements com.google.andro
                             //options.title("My Location");
 
 
-                            currentLocationMarker=mgoogleMap.addMarker(options);
+                            //currentLocationMarker=mgoogleMap.addMarker(options);
                            // moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
                                   //  DEFAULT_ZOOM,"My Location");
 

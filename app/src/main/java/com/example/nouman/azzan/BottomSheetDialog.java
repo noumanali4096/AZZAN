@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Button;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
 public class BottomSheetDialog extends BottomSheetDialogFragment {
@@ -24,19 +25,26 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
     private TextView jumma;
     private static final String DESCRIBABLE_KEY = "timmings_key";
     private static final String NAME_KEY = "name_key";
-    private static final String CMARKER_KEY = "cmarker_key";
-    private static final String MMARKER_KEY = "mmarker_key";
+    private static final String CLAT_KEY = "clat_key";
+    private static final String CLNG_KEY = "clng_key";
+    private static final String DLAT_KEY = "dlat_key";
+    private static final String DLNG_KEY = "dlng_key";
     private PrayerTimmings timmingsToShow ;
     private String mosqueName;
     private ImageButton direction;
+    private LatLng current;
+    private LatLng dest;
 
-    public static BottomSheetDialog newInstance(PrayerTimmings modelToPass,String name) {
+    public static BottomSheetDialog newInstance(PrayerTimmings modelToPass,String name,double cLat,double cLng,double dLat,double dLng) {
         BottomSheetDialog bottomSheetFragment = new BottomSheetDialog();
         Bundle bundle = new Bundle();
         bundle.putSerializable(DESCRIBABLE_KEY,modelToPass);
         bundle.putSerializable(NAME_KEY,name);
+        bundle.putSerializable(CLAT_KEY,cLat);
+        bundle.putSerializable(CLNG_KEY,cLng);
+        bundle.putSerializable(DLAT_KEY,dLat);
+        bundle.putSerializable(DLNG_KEY,dLng);
         bottomSheetFragment.setArguments(bundle);
-
         return bottomSheetFragment ;
     }
 
@@ -49,6 +57,12 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
                 DESCRIBABLE_KEY);
         mosqueName = (String) getArguments().getSerializable(
                 NAME_KEY);
+        current = new LatLng((Double) getArguments().getSerializable(
+                CLAT_KEY),(Double) getArguments().getSerializable(
+                CLNG_KEY));
+        dest = new LatLng((Double) getArguments().getSerializable(
+                DLAT_KEY),(Double) getArguments().getSerializable(
+                DLNG_KEY));
         direction = (ImageButton) v.findViewById(R.id.imageButton);
         tetxtView = (TextView) v.findViewById(R.id.textView);
         tetxtView.setText(mosqueName);
@@ -68,7 +82,10 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(getContext(),DirectionActivity.class);
-                startActivity(intent);
+                intent.putExtra("cmarker",current);
+                intent.putExtra("dmarker",dest);
+                intent.putExtra("name",mosqueName);
+                startActivityForResult(intent,1);
             }
         });
         return v;

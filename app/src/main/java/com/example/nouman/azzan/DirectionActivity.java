@@ -2,6 +2,7 @@ package com.example.nouman.azzan;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -39,7 +40,10 @@ public class DirectionActivity extends FragmentActivity implements OnMapReadyCal
 
     private GoogleMap mMap;
     private static final int LOCATION_REQUEST = 500;
-    ArrayList<LatLng> listPoints;
+    LatLng current;
+    private static final float DEFAULT_ZOOM = 15f;
+    LatLng dest;
+    String mName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +51,13 @@ public class DirectionActivity extends FragmentActivity implements OnMapReadyCal
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        current = (LatLng) bundle.get("cmarker");
+        dest = (LatLng) bundle.get("dmarker");
+        mName = (String) bundle.get("name");
         mapFragment.getMapAsync(this);
-        listPoints = new ArrayList<>();
+
     }
 
 
@@ -70,38 +79,22 @@ public class DirectionActivity extends FragmentActivity implements OnMapReadyCal
             return;
         }
         mMap.setMyLocationEnabled(true);
-        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
-            @Override
-            public void onMapLongClick(LatLng latLng) {
-                //Reset marker when already 2
-                if (listPoints.size() == 2) {
-                    listPoints.clear();
-                    mMap.clear();
-                }
-                //Save first point select
-                listPoints.add(latLng);
-                //Create marker
-                MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.position(latLng);
+        MarkerOptions cmarkerOptions = new MarkerOptions();
+        cmarkerOptions.position(current);
+        cmarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+        mMap.addMarker(cmarkerOptions);
 
-                if (listPoints.size() == 1) {
-                    //Add first marker to the map
-                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-                } else {
-                    //Add second marker to the map
-                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                }
-                mMap.addMarker(markerOptions);
+        MarkerOptions dmarkerOptions = new MarkerOptions();
+        dmarkerOptions.position(dest);
+        dmarkerOptions.title(mName);
+        dmarkerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.mosquemarker_30x));
+        mMap.addMarker(dmarkerOptions);
 
-                if (listPoints.size() == 2) {
-                    //Create the URL to get request from first marker to second marker
-                    String url = getRequestUrl(listPoints.get(0), listPoints.get(1));
-                    TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
-                    taskRequestDirections.execute(url);
-                }
-            }
-        });
+        String url = getRequestUrl(current,dest);
+        TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
+        taskRequestDirections.execute(url);
 
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(current,DEFAULT_ZOOM));
     }
 
     private String getRequestUrl(LatLng origin, LatLng dest) {
