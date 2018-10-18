@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Mosque Name"
+        android:textSize="30sp"/>
+
+    <TableLayout
+        android:id="@+id/table_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <TextView
+                android:id="@+id/fajar_textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="FAJAR"
+                android:layout_weight="1"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/fajar_time_textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="12:00PM"
+                android:layout_weight="1"
+                android:textSize="15sp"/>
+
+
+
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:id="@+id/zohar_textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="ZUHAR"
+                android:layout_weight="1"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/zohar_time_textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="12:00PM"
+                android:layout_weight="1"
+                android:textSize="15sp"/>
+
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:id="@+id/asar_textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="ASAR"
+                android:layout_weight="1"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/asar_time_textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="12:00PM"
+                android:layout_weight="1"
+                android:textSize="15sp"/>
+
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:id="@+id/maghrib_textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="MAGRIB"
+                android:layout_weight="1"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/magrib_time_textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="12:00PM"
+                android:layout_weight="1"
+                android:textSize="15sp"/>
+
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:id="@+id/isha_textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="ISHA"
+                android:layout_weight="1"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/isha_time_textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="12:00PM"
+                android:layout_weight="1"
+                android:textSize="15sp"/>
+
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:id="@+id/juma_textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="JUMMA"
+                android:layout_weight="1"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/juma_time_textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="12:00PM"
+                android:layout_weight="1"
+                android:textSize="15sp"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp">
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:srcCompat="@android:drawable/ic_menu_directions"
+                android:layout_weight="1"/>
+
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:srcCompat="@android:drawable/btn_star_big_on"
+                android:layout_weight="1"/>
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>

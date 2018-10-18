@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+<item
+android:id="@+id/action_options"
+    android:title="option"
+    android:icon="@drawable/ic_action_name"
+    app:showAsAction="ifRoom"
+    />
+    <item
+        android:id="@+id/action_nikkah"
+        android:title="Nikkah App"
+
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/action_Ittekaaf"
+        android:title="Ittekaaf App"
+
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/action_shop"
+        android:title="Islamic Shop"
+
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/action_logout"
+        android:title="LogOut"
+
+        app:showAsAction="never"
+        />
+
+</menu>

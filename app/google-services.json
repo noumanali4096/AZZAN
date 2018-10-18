@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "677011367069",
+    "firebase_url": "https://azzan-f7f08.firebaseio.com",
+    "project_id": "azzan-f7f08",
+    "storage_bucket": "azzan-f7f08.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:677011367069:android:c2ce1bc8fa6cc46e",
+        "android_client_info": {
+          "package_name": "com.example.nouman.azzan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "677011367069-92iuj4vjbn0cs6uqooti2bpb92dh7a97.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nouman.azzan",
+            "certificate_hash": "c1c23622bc777fc916da7ea761bac5f6b08408e2"
+          }
+        },
+        {
+          "client_id": "677011367069-d7aq2l3ssg3dddfd26r7c6h7vl1v762j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBWyIlzGg_xrZpp-TncC4Lp3eAnCOKzJY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "677011367069-d7aq2l3ssg3dddfd26r7c6h7vl1v762j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
