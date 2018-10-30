@@ -21,11 +21,15 @@ public class UserVerified extends AppCompatActivity {
         t1=(TextView) findViewById(R.id.verified_text);
         i1=(ImageView) findViewById(R.id.verified_imageView);
         b1=(Button) findViewById(R.id.next_button);
+        Intent intent2 = getIntent();
+
+        final String first = intent2.getStringExtra("UserPhoneNo");
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(UserVerified.this,UserDetail.class);
-                startActivity(intent);
+                intent.putExtra("UserPhoneInfo",first);
+                startActivityForResult(intent,2);
             }
         });
     }

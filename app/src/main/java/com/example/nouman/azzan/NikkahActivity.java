@@ -1,19 +1,27 @@
 package com.example.nouman.azzan;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class NikkahActivity extends AppCompatActivity {
 
-    TextView t1, t2, t3;
-    TextView t10, t11, t12;
+    EditText name,date,time;
     Button b1, b2, b3;
     Toolbar toolbar;
-
+    String fourth;
+    DatabaseReference databaseNikkah;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,15 +33,25 @@ public class NikkahActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         }
-        t1 = (TextView) findViewById(R.id.ittekaaf_userName);
-        t2 = (TextView) findViewById(R.id.start_date);
-        t3 = (TextView) findViewById(R.id.end_date);
-        // b1=(Button) findViewById( R.id.nikkah_datebutton);
-        //b2=(Button) findViewById( R.id.Nikkahtime_button);
+        Intent intent2 = getIntent();
+
+        fourth = intent2.getStringExtra("UserPhone3");
+        databaseNikkah= FirebaseDatabase.getInstance().getReferenceFromUrl
+                ("https://azzan-f7f08.firebaseio.com/NikkahAppointment");
+        name = (EditText) findViewById(R.id.editText);
+        date = (EditText) findViewById(R.id.editText7);
+        time = (EditText) findViewById(R.id.editText8);
+
         b3 = (Button) findViewById(R.id.submit_request);
-        t10 = (TextView) findViewById(R.id.textView10);
-        t11 = (TextView) findViewById(R.id.textView11);
-        t12 = (TextView) findViewById(R.id.textView12);
+        b3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addNikkahAppointment();
+               name.setText("");
+               date.setText("");
+               time.setText("");
+            }
+        });
 
 
     }
@@ -44,5 +62,33 @@ public class NikkahActivity extends AppCompatActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+    private void addNikkahAppointment(){
+        String username =  name.getText().toString().trim();
+        String s1 = date.getText().toString().trim();
+        String s2 = time.getText().toString().trim();
+
+
+        if(!TextUtils.isEmpty(username) && !TextUtils.isEmpty(s1) && !TextUtils.isEmpty(s2))
+        {
+
+
+            NikkahAppointment nikkahAppointment=new NikkahAppointment(username,s1,s2,fourth);
+            databaseNikkah.child(fourth).setValue(nikkahAppointment);
+
+            Toast.makeText(this,"Nikkah Request sent",Toast.LENGTH_LONG).show();
+        }
+        else {
+            if(TextUtils.isEmpty(username)){
+                name.setError("Enter name");
+            }
+            if(TextUtils.isEmpty(s1)){
+                date.setError("Enter date");
+            }
+            if(TextUtils.isEmpty(s2)){
+                time.setError("Enter time");
+            }
+
+        }
     }
 }

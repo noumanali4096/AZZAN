@@ -35,6 +35,7 @@ public class UserHomeScreen extends AppCompatActivity {
             R.drawable.alarm,
     R.drawable.calendar};
     Toolbar toolbar;
+    String third;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -42,6 +43,9 @@ public class UserHomeScreen extends AppCompatActivity {
         setContentView(R.layout.activity_user_home_screen);
         toolbar=(Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Intent intent2 = getIntent();
+
+        third = intent2.getStringExtra("UserInfo2");
        // adapter=new PagerAdapter(getSupportFragmentManager());
         if(isServicesOK()){
             viewPager=(ViewPager) findViewById(R.id.viewpager);
@@ -81,7 +85,7 @@ public class UserHomeScreen extends AppCompatActivity {
     private  void setupviewpager(ViewPager viewPager){
         MyPagerAdapter pagerAdapter=new MyPagerAdapter(getSupportFragmentManager(),UserHomeScreen.this);
         pagerAdapter.addFragment(new MosqueFragmentSolution(),"Mosque");
-        pagerAdapter.addFragment(new QiblaCompassFragment(),"Qibla");
+        pagerAdapter.addFragment(new QiblaCompassFragmentUpdated(),"Qibla");
         pagerAdapter.addFragment(new NamazAlarmFragment(),"Alarm");
         pagerAdapter.addFragment(new HijriCalenderFragment(),"Calender");
         viewPager.setAdapter(pagerAdapter);
@@ -99,11 +103,15 @@ public class UserHomeScreen extends AppCompatActivity {
         int res_id=item.getItemId();
         if(res_id==R.id.action_nikkah)
         {
-            startActivity(new Intent(UserHomeScreen.this,NikkahActivity.class));
+            Intent intent=new Intent(UserHomeScreen.this,NikkahActivity.class);
+            intent.putExtra("UserPhone3",third);
+            startActivityForResult(intent,4);
         }
         if(res_id==R.id.action_Ittekaaf)
         {
-            startActivity(new Intent(UserHomeScreen.this,IteekaafActivity.class));
+            Intent intent=new Intent(UserHomeScreen.this,IteekaafActivity.class);
+            intent.putExtra("UserPhone4",third);
+            startActivityForResult(intent,5);
         }
         if(res_id==R.id.action_shop)
         {

@@ -175,15 +175,15 @@
             <ImageButton
                 android:id="@+id/imageButton"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="200px"
                 app:srcCompat="@android:drawable/ic_menu_directions"
                 android:layout_weight="1"/>
 
             <ImageButton
                 android:id="@+id/imageButton2"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/btn_star_big_on"
+                android:layout_height="200px"
+                app:srcCompat="@android:drawable/star_big_on"
                 android:layout_weight="1"/>
         </TableRow>
 

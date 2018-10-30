@@ -138,8 +138,12 @@ public class MainActivity extends AppCompatActivity {
                            // Log.d(TAG, "signInWithCredential:success");
 
                             FirebaseUser user = task.getResult().getUser();
+                            String phoneNo=e1.getText().toString().trim();
                             // [START_EXCLUDE]
-                            startActivity(new Intent(MainActivity.this,UserVerified.class));
+                            Intent intent=new Intent(MainActivity.this,UserVerified.class);
+                            intent.putExtra("UserPhoneNo",phoneNo);
+                            startActivityForResult(intent,1);
+                            //startActivity(new Intent(MainActivity.this,UserVerified.class));
 
                         } else {
                             // Sign in failed, display a message and update the UI

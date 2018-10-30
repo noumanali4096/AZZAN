@@ -20,46 +20,6 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/ittekaaf_userName"
-        android:layout_width="237dp"
-        android:layout_height="48dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="48dp"
-        android:layout_marginTop="106dp"
-        android:hint="Full Name"
-        android:text="               Yasir Ali"
-        android:textSize="18sp"
-        tools:layout_editor_absoluteX="40dp"
-        tools:layout_editor_absoluteY="102dp" />
-
-    <TextView
-        android:id="@+id/start_date"
-        android:layout_width="236dp"
-        android:layout_height="55dp"
-        android:layout_alignEnd="@+id/ittekaaf_userName"
-
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="198dp"
-        android:hint="Nikkah Date"
-        android:text="           06-06-2018"
-        android:textSize="18sp"
-        tools:layout_editor_absoluteX="40dp"
-        tools:layout_editor_absoluteY="204dp" />
-
-
-    <TextView
-        android:id="@+id/end_date"
-        android:layout_width="232dp"
-        android:layout_height="49dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/start_date"
-        android:layout_marginBottom="228dp"
-        android:text="           12:30PM"
-        android:textSize="18sp" />
-
-
 
     <Button
         android:id="@+id/submit_request"
@@ -67,33 +27,40 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="117dp"
+        android:layout_marginBottom="193dp"
         android:text="Submit Request" />
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="85dp"
-        android:layout_height="46dp"
-        android:layout_alignTop="@+id/ittekaaf_userName"
-        android:layout_toStartOf="@+id/ittekaaf_userName"
-        android:text="Name:"
-        android:textSize="18sp" />
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="95dp"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName" />
 
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="84dp"
-        android:layout_height="53dp"
-        android:layout_alignTop="@+id/start_date"
-        android:layout_toStartOf="@+id/ittekaaf_userName"
-        android:text="Date:"
-        android:textSize="18sp" />
+    <EditText
+        android:id="@+id/editText7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="167dp"
+        android:ems="10"
+        android:hint="Date"
+        android:inputType="textPersonName" />
 
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="86dp"
-        android:layout_height="47dp"
-        android:layout_alignStart="@+id/textView10"
-        android:layout_alignTop="@+id/end_date"
-        android:text="Time:"
-        android:textSize="18sp" />
+    <EditText
+        android:id="@+id/editText8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="234dp"
+        android:ems="10"
+        android:hint="Time"
+        android:inputType="textPersonName" />
+
 </RelativeLayout>

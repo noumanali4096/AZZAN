@@ -78,9 +78,10 @@ public class MosqueFragmentSolution extends Fragment implements com.google.andro
 
     private HashMap<String,Marker> markerList;
     private Marker mMarker;
-
+    private String userphone;
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        userphone="03040670709";
         moqueFirebase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://azzan-f7f08.firebaseio.com/mosque");
         databasePrayerTiming = FirebaseDatabase.getInstance().getReferenceFromUrl
                 ("https://azzan-f7f08.firebaseio.com/prayertiming");
@@ -152,7 +153,7 @@ public class MosqueFragmentSolution extends Fragment implements com.google.andro
                        for (HashMap.Entry<String,Marker> entry : markerList.entrySet()) {
                            if(entry.getValue().equals(marker)){
                                mMarker = marker;
-                               String phone = entry.getKey();
+                               final String phone = entry.getKey();
                                Query fireBaseQuery = databasePrayerTiming.orderByChild("phoneNumber").equalTo(phone);
 
                                fireBaseQuery.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -167,7 +168,7 @@ public class MosqueFragmentSolution extends Fragment implements com.google.andro
                                            if(prayerTimmings!=null)
                                            {
                                                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                                               BottomSheetDialog.newInstance(prayerTimmings,mMarker.getTitle(),
+                                               BottomSheetDialog.newInstance(prayerTimmings,mMarker.getTitle(),phone,userphone,
                                                        currentLocationMarker.getPosition().latitude,currentLocationMarker.getPosition().longitude,
                                                        mMarker.getPosition().latitude,mMarker.getPosition().longitude).show(transaction, "bottomsheet");
                                            }
