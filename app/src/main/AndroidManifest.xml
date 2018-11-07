@@ -21,19 +21,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".LogIn" />
         <activity android:name=".UserVerified" />
         <activity android:name=".UserDetail" />
-        <activity android:name=".UserHomeScreen">
-
-
-        </activity>
+        <activity android:name=".UserHomeScreen"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -43,7 +36,18 @@
         <activity android:name=".IteekaafActivity" />
         <activity
             android:name=".DirectionActivity"
-            android:label="@string/title_activity_direction"></activity>
+            android:label="@string/title_activity_direction" />
+        <activity
+            android:name=".FullscreenActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_fullscreen"
+            android:theme="@style/FullscreenTheme">
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

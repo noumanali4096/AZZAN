@@ -81,7 +81,7 @@ public class MosqueFragmentSolution extends Fragment implements com.google.andro
     private String userphone;
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        userphone="03040670709";
+        userphone= getActivity().getIntent().getStringExtra("UserInfo2");
         moqueFirebase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://azzan-f7f08.firebaseio.com/mosque");
         databasePrayerTiming = FirebaseDatabase.getInstance().getReferenceFromUrl
                 ("https://azzan-f7f08.firebaseio.com/prayertiming");
@@ -358,7 +358,7 @@ public class MosqueFragmentSolution extends Fragment implements com.google.andro
         currentLocationMarker = mgoogleMap.addMarker(markerOptions);
         mgoogleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mgoogleMap.animateCamera(CameraUpdateFactory.zoomBy(DEFAULT_ZOOM));
-
+        mgoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocationMarker.getPosition(),DEFAULT_ZOOM));
         if (client != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(client, this);
         }
