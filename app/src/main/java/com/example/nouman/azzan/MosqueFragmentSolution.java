@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -79,8 +81,11 @@ public class MosqueFragmentSolution extends Fragment implements com.google.andro
     private HashMap<String,Marker> markerList;
     private Marker mMarker;
     private String userphone;
+    private Button button;
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+
         userphone= getActivity().getIntent().getStringExtra("UserInfo2");
         moqueFirebase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://azzan-f7f08.firebaseio.com/mosque");
         databasePrayerTiming = FirebaseDatabase.getInstance().getReferenceFromUrl
@@ -89,7 +94,17 @@ public class MosqueFragmentSolution extends Fragment implements com.google.andro
         getLocationPermission();
         View rootView = inflater.inflate(R.layout.fragment_mosque_fragment_solution, container, false);
 
-        mMapView = (MapView) rootView.findViewById(R.id.mapView);
+        button = (Button) rootView.findViewById(R.id.mosqbutton);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(),MosqueList.class);
+                startActivity(intent);
+            }
+        });
+
+                mMapView = (MapView) rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
 
         mMapView.onResume(); // needed to get the map to display immediately
@@ -143,6 +158,9 @@ public class MosqueFragmentSolution extends Fragment implements com.google.andro
 
                         }
                     });
+                    mgoogleMap.setMapStyle(
+                            MapStyleOptions.loadRawResourceStyle(
+                                    getContext(), R.raw.style_json));
                 }
 
 

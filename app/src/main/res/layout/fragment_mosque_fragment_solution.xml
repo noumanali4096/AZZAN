@@ -6,6 +6,13 @@
     tools:context=".MosqueFragmentSolution">
 
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/mosqbutton"
+            android:padding="5dp"
+            android:text="Nearby Mosques"
+            tools:background="#fff" />
 
         <com.google.android.gms.maps.MapView
             android:id="@+id/mapView"

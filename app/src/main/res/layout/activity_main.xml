@@ -5,15 +5,17 @@
     android:layout_height="match_parent"
 
 
-    android:background="@drawable/mosquepic"
+
+    android:background="@drawable/title"
     tools:context=".MainActivity">
 
     <ImageView
         android:id="@+id/phoneicon"
-        android:layout_width="37dp"
+        android:layout_width="36dp"
         android:layout_height="46dp"
         android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/phoneNo_editText"
+        android:layout_marginStart="28dp"
         android:src="@drawable/ic_phone_android_black_24dp" />
 
     <TextView
@@ -39,7 +41,7 @@
 
     <EditText
         android:id="@+id/phoneNo_editText"
-        android:layout_width="255dp"
+        android:layout_width="227dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -51,9 +53,11 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/OTP_textView"
                 android:layout_width="258dp"
@@ -63,8 +67,8 @@
                 android:layout_marginTop="81dp"
                 android:text="Enter OTP Here"
                 android:textAlignment="center"
-                android:visibility="gone"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/OTP_code_button"
@@ -73,9 +77,9 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="144dp"
-                android:visibility="gone"
                 android:fontFamily="monospace"
-                android:text="Verify" />
+                android:text="Verify"
+                android:visibility="gone" />
 
             <EditText
                 android:id="@+id/OTP_editText"
@@ -85,9 +89,9 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="198dp"
                 android:ems="10"
+                android:hint="OTP Here"
                 android:inputType="phone"
                 android:visibility="gone"
-                android:hint="OTP Here"
                 tools:layout_editor_absoluteX="65dp"
                 tools:layout_editor_absoluteY="163dp" />
         </RelativeLayout>

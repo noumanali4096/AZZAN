@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UserVerified"
-    android:background="@drawable/mosquepic"
+    android:background="@drawable/title"
     >
 
     <TextView
@@ -22,12 +22,24 @@
 
     <ImageView
         android:id="@+id/verified_imageView"
-        android:layout_width="236dp"
-        android:layout_height="wrap_content"
+        android:layout_width="140dp"
+        android:layout_height="205dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="135dp"
+        android:layout_marginTop="209dp"
         app:srcCompat="@drawable/verified1" />
+
+    <TextView
+        android:id="@+id/verified"
+        android:layout_width="265dp"
+        android:layout_height="33dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="139dp"
+        android:text="You may proceed now"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/next_button"

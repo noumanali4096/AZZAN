@@ -31,7 +31,7 @@ public class QiblaCompassFragmentUpdated extends Fragment implements SensorEvent
     // device sensor manager
     private SensorManager mSensorManager;
 
-    TextView tvHeading;
+  //  TextView tvHeading;
 
     public QiblaCompassFragmentUpdated() {
         // Required empty public constructor
@@ -45,7 +45,7 @@ public class QiblaCompassFragmentUpdated extends Fragment implements SensorEvent
         image = (ImageView) mView.findViewById(R.id.imageViewNeedle);
 
         // TextView that will tell the user what degree is he heading
-        tvHeading = (TextView) mView.findViewById(R.id.tvHeading);
+        //tvHeading = (TextView) mView.findViewById(R.id.tvHeading);
 
         return  mView;
     }
@@ -76,7 +76,7 @@ public class QiblaCompassFragmentUpdated extends Fragment implements SensorEvent
 
         float degree = Math.round(event.values[0]);
 
-        tvHeading.setText("Heading: " + Float.toString(degree) + " degrees");
+      //  tvHeading.setText("Heading: " + Float.toString(degree) + " degrees");
 
         // create a rotation animation (reverse turn degree degrees)
         RotateAnimation ra = new RotateAnimation(
