@@ -36,6 +36,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="144dp"
+        android:background="#e1bee7"
         android:fontFamily="monospace"
         android:text="Send Code" />
 
@@ -77,6 +78,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="144dp"
+                android:background="#e1bee7"
                 android:fontFamily="monospace"
                 android:text="Verify"
                 android:visibility="gone" />

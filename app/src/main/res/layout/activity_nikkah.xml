@@ -16,18 +16,19 @@
         app:layout_scrollFlags="scroll|enterAlways"
         app:popupTheme="@style/AppTheme.PopupOverlay"
         app:title="@string/nikkahapp"
-        >
+        tools:titleTextColor="#fff">
 
     </android.support.v7.widget.Toolbar>
 
 
     <Button
         android:id="@+id/submit_request"
-        android:layout_width="wrap_content"
+        android:layout_width="121dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="193dp"
+        android:layout_marginBottom="142dp"
+        android:background="#e1bee7"
         android:text="Submit Request" />
 
     <EditText
@@ -36,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="95dp"
+        android:layout_marginTop="142dp"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName" />
@@ -47,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="167dp"
+        android:layout_marginTop="219dp"
         android:ems="10"
         android:hint="Date"
         android:inputType="textPersonName" />
@@ -56,9 +57,9 @@
         android:id="@+id/editText8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="234dp"
+        android:layout_marginBottom="229dp"
         android:ems="10"
         android:hint="Time"
         android:inputType="textPersonName" />

@@ -31,7 +31,7 @@ public class NamazAlarmFragment extends Fragment {
     DatabaseReference databaseMosquetiming;
     DatabaseReference databaseMosque;
     EditText e1,e2,e3,e4,e5,e6;
-    TextView t7;
+    TextView t7,t1,t2,t3,t4,t5,t6;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,6 +47,13 @@ public class NamazAlarmFragment extends Fragment {
         e5 = (EditText) v.findViewById(R.id.editText5);
         e6 = (EditText) v.findViewById(R.id.editText6);
         t7 = (TextView) v.findViewById(R.id.textView7);
+        t1 = (TextView) v.findViewById(R.id.textView1);
+        t2 = (TextView) v.findViewById(R.id.textView2);
+        t3 = (TextView) v.findViewById(R.id.textView3);
+        t4 = (TextView) v.findViewById(R.id.textView4);
+        t5 = (TextView) v.findViewById(R.id.textView5);
+        t6 = (TextView) v.findViewById(R.id.textView6);
+
         e1.setEnabled(false);
         e2.setEnabled(false);
         e3.setEnabled(false);
@@ -124,8 +131,34 @@ public class NamazAlarmFragment extends Fragment {
 
                             }
                         });
+                        e1.setVisibility(View.VISIBLE);
+                        e2.setVisibility(View.VISIBLE);
+                        e3.setVisibility(View.VISIBLE);
+                        e4.setVisibility(View.VISIBLE);
+                        e5.setVisibility(View.VISIBLE);
+                        e6.setVisibility(View.VISIBLE);
+                        t1.setVisibility(View.VISIBLE);
+                        t2.setVisibility(View.VISIBLE);
+                        t3.setVisibility(View.VISIBLE);
+                        t4.setVisibility(View.VISIBLE);
+                        t5.setVisibility(View.VISIBLE);
+                        t6.setVisibility(View.VISIBLE);
 
-
+                    }
+                    else{
+                        t7.setText("You are not subscribed to any mosque!");
+                        e1.setVisibility(View.INVISIBLE);
+                        e2.setVisibility(View.INVISIBLE);
+                        e3.setVisibility(View.INVISIBLE);
+                        e4.setVisibility(View.INVISIBLE);
+                        e5.setVisibility(View.INVISIBLE);
+                        e6.setVisibility(View.INVISIBLE);
+                        t1.setVisibility(View.INVISIBLE);
+                        t2.setVisibility(View.INVISIBLE);
+                        t3.setVisibility(View.INVISIBLE);
+                        t4.setVisibility(View.INVISIBLE);
+                        t5.setVisibility(View.INVISIBLE);
+                        t6.setVisibility(View.INVISIBLE);
                     }
 
                 }

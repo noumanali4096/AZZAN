@@ -176,16 +176,18 @@
             <ImageButton
                 android:id="@+id/imageButton"
                 android:layout_width="0dp"
-                android:layout_height="200px"
-                app:srcCompat="@android:drawable/ic_menu_directions"
-                android:layout_weight="1"/>
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#bef67a"
+                app:srcCompat="@android:drawable/ic_menu_directions" />
 
             <ImageButton
                 android:id="@+id/imageButton2"
                 android:layout_width="0dp"
-                android:layout_height="200px"
-                app:srcCompat="@android:drawable/star_big_on"
-                android:layout_weight="1"/>
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="#52c7b8"
+                app:srcCompat="@android:drawable/star_big_on" />
         </TableRow>
 
     </TableLayout>

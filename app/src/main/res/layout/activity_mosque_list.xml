@@ -1,22 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MosqueList">
+    tools:context=".MosqueList"
+    android:background="@drawable/qudus"
+    >
 
-    <LinearLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="?attr/actionBarSize"
+        android:layout_weight="1"
+        android:background="?attr/colorPrimary"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:title="@string/app_name"
+        app:titleTextColor="#fff">
+
+    </android.support.v7.widget.Toolbar>
+
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/toolbar"
+        android:background="#e1bee7"
+        android:paddingTop="15dp"
+        android:text="Recommended Mosques"
+        android:textAlignment="center"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+
         <ListView
+            android:id="@+id/mosqlist"
+            android:layout_below="@id/textView9"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/mosqlist">
+            android:layout_height="wrap_content">
 
         </ListView>
 
-    </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+
+</RelativeLayout>

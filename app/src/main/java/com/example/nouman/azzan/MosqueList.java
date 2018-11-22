@@ -3,6 +3,9 @@ package com.example.nouman.azzan;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -19,60 +22,50 @@ import java.util.zip.Inflater;
 
 public class MosqueList extends AppCompatActivity {
 
-    DatabaseReference databasemosq;
-    DatabaseReference databasePrayertimming;
+    DatabaseReference databasemosquentimming;
     ListView listmosq;
     List<MosqueNTime> mosqueNTimeLists;
     Mosque mosq;
     PrayerTimmings prayerTimmings;
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mosque_list);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        }
         listmosq = (ListView) findViewById(R.id.mosqlist);
         mosqueNTimeLists = new ArrayList<>();
-        databasemosq = FirebaseDatabase.getInstance().getReferenceFromUrl("https://azzan-f7f08.firebaseio.com/mosque");
-        databasePrayertimming = FirebaseDatabase.getInstance().getReferenceFromUrl("https://azzan-f7f08.firebaseio.com/prayertimings");
+        databasemosquentimming = FirebaseDatabase.getInstance().getReferenceFromUrl("https://azzan-f7f08.firebaseio.com/mosquentiming");
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    @Override
     protected void onStart() {
         super.onStart();
-
-        databasemosq.addValueEventListener(new ValueEventListener() {
+        Log.d("mosquelist", "i am here");
+        databasemosquentimming.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mosqueNTimeLists.clear();
                 for(DataSnapshot mosqSnapshot: dataSnapshot.getChildren()) {
 
-                    mosq = mosqSnapshot.getValue(Mosque.class);
-                    if(mosq!=null)
+                    MosqueNTime mosqueNTime = mosqSnapshot.getValue(MosqueNTime.class);
+                    if(mosqueNTime!=null)
                     {
-                        Query fireBaseQuery = databasePrayertimming.orderByChild("phoneNumber").equalTo(mosq.getPhone());
-
-                        fireBaseQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                //if (dataSnapshot.exists()) {
-
-                                // dataSnapshot is the "issue" node with all children with id 0
-                                for (DataSnapshot mosqueadminSnapshot : dataSnapshot.getChildren()) {
-                                    prayerTimmings =  mosqueadminSnapshot.getValue(PrayerTimmings.class);
-                                    if(prayerTimmings!=null)
-                                    {
-                                        MosqueNTime obj = new MosqueNTime(mosq,prayerTimmings,1000);
-                                        mosqueNTimeLists.add(obj);
-                                    }
-                                }
-
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
+                        mosqueNTimeLists.add(mosqueNTime);
+                        Log.d("mosquelist", "i am here");
                     }
 
                 }

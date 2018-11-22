@@ -7,17 +7,18 @@
 
 
         <Button
+            android:id="@+id/mosqbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/mosqbutton"
-            android:padding="5dp"
-            android:text="Nearby Mosques"
-            tools:background="#fff" />
+            android:padding="10dp"
+            android:text="Recommended Mosques"
+            android:background="#e1bee7" />
 
         <com.google.android.gms.maps.MapView
             android:id="@+id/mapView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="#fff" />
 
 
 

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/wazirkhan8"
     tools:context=".IteekaafActivity">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -15,18 +16,19 @@
         app:layout_scrollFlags="scroll|enterAlways"
         app:popupTheme="@style/AppTheme.PopupOverlay"
         app:title="@string/ittekaafapp"
-        >
+        tools:titleTextColor="#fff">
 
     </android.support.v7.widget.Toolbar>
 
 
     <Button
         android:id="@+id/submit_request"
-        android:layout_width="wrap_content"
+        android:layout_width="119dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="185dp"
+        android:layout_marginBottom="134dp"
+        android:background="#e1bee7"
         android:text="Submit Request" />
 
     <EditText
@@ -35,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="97dp"
+        android:layout_marginTop="140dp"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName" />
@@ -46,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="167dp"
+        android:layout_marginTop="216dp"
         android:ems="10"
         android:hint="Start Date"
         android:inputType="textPersonName" />
@@ -55,9 +57,9 @@
         android:id="@+id/editText_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="243dp"
+        android:layout_marginBottom="232dp"
         android:ems="10"
         android:hint="End Date"
         android:inputType="textPersonName" />

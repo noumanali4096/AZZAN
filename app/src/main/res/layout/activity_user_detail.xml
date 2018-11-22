@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="69dp"
+        android:layout_marginTop="117dp"
         android:ems="10"
         android:hint="Full Name"
         android:inputType="textPersonName" />
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="153dp"
+        android:layout_marginTop="187dp"
         android:ems="10"
         android:hint="Address"
         android:inputType="textPersonName" />
@@ -45,6 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="99dp"
+        android:layout_marginBottom="134dp"
+        android:background="#e1bee7"
         android:text="Done" />
 </RelativeLayout>

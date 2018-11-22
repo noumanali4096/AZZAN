@@ -36,7 +36,7 @@ public class MosqueNTimeList  extends ArrayAdapter<MosqueNTime> {
 
         textViewName.setText(mosqueNTime.getMosque().getName());
         textViewtime.setText("jumma: " +mosqueNTime.getPrayerTimmings().getJumatime());
-        textViewdist.setText(Double.toString(mosqueNTime.getDistance()));
+        textViewdist.setText("100 meters");
 
         return listViewItem;
     }

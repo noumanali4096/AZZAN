@@ -38,6 +38,7 @@
             android:layout_marginStart="21dp"
             android:layout_marginTop="17dp"
             android:text="Qibla Direction"
+            android:textSize="20sp"
             tools:fontFamily="sans-serif-smallcaps" />
 
     </RelativeLayout>

@@ -18,6 +18,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -95,6 +96,8 @@ public class DirectionActivity extends FragmentActivity implements OnMapReadyCal
         taskRequestDirections.execute(url);
 
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(current,DEFAULT_ZOOM));
+        mMap.setMapStyle(
+                MapStyleOptions.loadRawResourceStyle(this, R.raw.style_json));
     }
 
     private String getRequestUrl(LatLng origin, LatLng dest) {

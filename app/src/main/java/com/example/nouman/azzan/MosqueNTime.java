@@ -3,7 +3,6 @@ package com.example.nouman.azzan;
 public class MosqueNTime {
     private  Mosque mosque;
     private PrayerTimmings prayerTimmings;
-    double distance;
     public MosqueNTime(){
 
     }
@@ -11,7 +10,6 @@ public class MosqueNTime {
     public MosqueNTime(Mosque mosque, PrayerTimmings prayerTimmings,double distance) {
         this.mosque = mosque;
         this.prayerTimmings = prayerTimmings;
-        this.distance = distance;
     }
 
     public Mosque getMosque() {
@@ -30,12 +28,5 @@ public class MosqueNTime {
         this.prayerTimmings = prayerTimmings;
     }
 
-    public double getDistance() {
-        return distance;
-    }
-
-    public void setDistance(double distance) {
-        this.distance = distance;
-    }
 
 }
