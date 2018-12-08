@@ -160,4 +160,17 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
+        if(current != null)
+        {
+            Intent intent = new Intent(this,UserHomeScreen.class);
+            intent.putExtra("UserInfo2",current.getPhoneNumber());
+            startActivity(intent);
+            finish();
+        }
+    }
 }

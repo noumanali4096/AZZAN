@@ -2,25 +2,32 @@ package com.example.nouman.azzan;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class BottomSheetDialog extends BottomSheetDialogFragment {
     private  TextView tetxtView;
@@ -38,6 +45,7 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
     private static final String CLNG_KEY = "clng_key";
     private static final String DLAT_KEY = "dlat_key";
     private static final String DLNG_KEY = "dlng_key";
+    private static final String SPHONE_KEY = "sphone_key";
     private PrayerTimmings timmingsToShow ;
     private String mosqueName;
     private ImageButton direction;
@@ -59,6 +67,7 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
         bundle.putSerializable(CLNG_KEY,cLng);
         bundle.putSerializable(DLAT_KEY,dLat);
         bundle.putSerializable(DLNG_KEY,dLng);
+        //bundle.putSerializable(SPHONE_KEY,sPhone);
         bottomSheetFragment.setArguments(bundle);
         return bottomSheetFragment ;
     }
@@ -79,6 +88,8 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
                 MPHONE_KEY);
         userPhone = (String) getArguments().getSerializable(
                 UPHONE_KEY);
+        //sPhone = (String) getArguments().getSerializable(SPHONE_KEY);
+
         current = new LatLng((Double) getArguments().getSerializable(
                 CLAT_KEY),(Double) getArguments().getSerializable(
                 CLNG_KEY));
@@ -130,20 +141,60 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
         direction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
                 Intent intent=new Intent(getContext(),DirectionActivity.class);
                 intent.putExtra("cmarker",current);
                 intent.putExtra("dmarker",dest);
                 intent.putExtra("name",mosqueName);
                 startActivityForResult(intent,1);
+                */
+
+                String uri="google.navigation:q="+dest.latitude+","+dest.longitude;
+                Uri gmmIntentUri = Uri.parse(uri);
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                startActivity(mapIntent);
+
             }
         });
 
         subscribe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MosqueSubcribe obj = new MosqueSubcribe(mosquePhone,userPhone);
-                databaseMosqueSubscribe.child(userPhone).setValue(obj);
-                subscribe.setImageResource(R.drawable.fui_done_check_mark);
+
+                Query fireBaseQuery = databaseMosqueSubscribe.orderByChild("userPhone").equalTo(userPhone);
+
+                fireBaseQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()) {
+                            for (DataSnapshot mosquesubscribeSnapshot : dataSnapshot.getChildren()) {
+                                MosqueSubcribe mosqueSubcribe = mosquesubscribeSnapshot.getValue(MosqueSubcribe.class);
+                                String topic = "mosqueTiming" + mosqueSubcribe.getMosquePhone();
+                                FirebaseMessaging.getInstance().unsubscribeFromTopic(topic);
+                                MosqueSubcribe obj = new MosqueSubcribe(mosquePhone,userPhone);
+                                databaseMosqueSubscribe.child(userPhone).setValue(obj);
+                                topic="mosqueTiming" + mosquePhone;
+                                FirebaseMessaging.getInstance().subscribeToTopic(topic);
+                                subscribe.setImageResource(R.drawable.fui_done_check_mark);
+                            }
+                        }
+                        else {
+                            MosqueSubcribe obj = new MosqueSubcribe(mosquePhone,userPhone);
+                            databaseMosqueSubscribe.child(userPhone).setValue(obj);
+                            String topic="mosqueTiming" + mosquePhone;
+                            FirebaseMessaging.getInstance().subscribeToTopic(topic);
+                            subscribe.setImageResource(R.drawable.fui_done_check_mark);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
             }
         });
         return v;

@@ -1,15 +1,19 @@
 package com.example.nouman.azzan;
 
+import java.util.Comparator;
+
 public class MosqueNTime {
     private  Mosque mosque;
     private PrayerTimmings prayerTimmings;
+    private int distance;
     public MosqueNTime(){
 
     }
 
-    public MosqueNTime(Mosque mosque, PrayerTimmings prayerTimmings,double distance) {
+    public MosqueNTime(Mosque mosque, PrayerTimmings prayerTimmings,int distance) {
         this.mosque = mosque;
         this.prayerTimmings = prayerTimmings;
+        this.distance=distance;
     }
 
     public Mosque getMosque() {
@@ -28,5 +32,12 @@ public class MosqueNTime {
         this.prayerTimmings = prayerTimmings;
     }
 
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
+    }
 
 }

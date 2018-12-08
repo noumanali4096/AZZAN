@@ -100,6 +100,8 @@ public class MosqueFragmentSolution extends Fragment implements com.google.andro
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(),MosqueList.class);
+                intent.putExtra("long",currentLocationMarker.getPosition().longitude);
+                intent.putExtra("lat",currentLocationMarker.getPosition().latitude);
                 startActivity(intent);
             }
         });

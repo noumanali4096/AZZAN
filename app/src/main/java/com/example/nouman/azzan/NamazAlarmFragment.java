@@ -35,7 +35,6 @@ public class NamazAlarmFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
 
         View v = inflater.inflate(R.layout.fragment_namaz_alarm, container, false);
@@ -54,6 +53,19 @@ public class NamazAlarmFragment extends Fragment {
         t5 = (TextView) v.findViewById(R.id.textView5);
         t6 = (TextView) v.findViewById(R.id.textView6);
 
+        e1.setVisibility(View.INVISIBLE);
+        e2.setVisibility(View.INVISIBLE);
+        e3.setVisibility(View.INVISIBLE);
+        e4.setVisibility(View.INVISIBLE);
+        e5.setVisibility(View.INVISIBLE);
+        e6.setVisibility(View.INVISIBLE);
+        t1.setVisibility(View.INVISIBLE);
+        t2.setVisibility(View.INVISIBLE);
+        t3.setVisibility(View.INVISIBLE);
+        t4.setVisibility(View.INVISIBLE);
+        t5.setVisibility(View.INVISIBLE);
+        t6.setVisibility(View.INVISIBLE);
+        t7.setVisibility(View.INVISIBLE);
         e1.setEnabled(false);
         e2.setEnabled(false);
         e3.setEnabled(false);
@@ -77,92 +89,86 @@ public class NamazAlarmFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                //if (dataSnapshot.exists()) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot mosqueSubSnapshot : dataSnapshot.getChildren()) {
+                        MosqueSubcribe obj = mosqueSubSnapshot.getValue(MosqueSubcribe.class);
+                        String mPhone = obj.getMosquePhone();
+                        if (!mPhone.isEmpty()) {
+                            Query fireBaseQueryMosqueTiming = databaseMosquetiming.orderByChild("phoneNumber").equalTo(mPhone);
+                            Query fireBaseQueryMosque = databaseMosque.orderByChild("phone").equalTo(mPhone);
+                            fireBaseQueryMosqueTiming.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
 
-                // dataSnapshot is the "issue" node with all children with id 0
-                for (DataSnapshot mosqueSubSnapshot : dataSnapshot.getChildren()) {
-                    MosqueSubcribe obj =  mosqueSubSnapshot.getValue(MosqueSubcribe.class);
-                    String mPhone = obj.getMosquePhone();
-                    if(!mPhone.isEmpty()){
-                        Query fireBaseQueryMosqueTiming= databaseMosquetiming.orderByChild("phoneNumber").equalTo(mPhone);
-                        Query fireBaseQueryMosque= databaseMosque.orderByChild("phone").equalTo(mPhone);
-                        fireBaseQueryMosqueTiming.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                //if (dataSnapshot.exists()) {
+                                    for (DataSnapshot mosqueTimingSnapshot : dataSnapshot.getChildren()) {
+                                        PrayerTimmings prayerTImings = mosqueTimingSnapshot.getValue(PrayerTimmings.class);
+                                        e1.setText(prayerTImings.getFajartime());
+                                        e2.setText(prayerTImings.getZohartime());
+                                        e3.setText(prayerTImings.getAsartime());
+                                        e4.setText(prayerTImings.getMaghribtime());
+                                        e5.setText(prayerTImings.getIshatime());
+                                        e6.setText(prayerTImings.getJumatime());
 
-                                // dataSnapshot is the "issue" node with all children with id 0
-                                for (DataSnapshot mosqueTimingSnapshot : dataSnapshot.getChildren()) {
-                                    PrayerTimmings prayerTImings =  mosqueTimingSnapshot.getValue(PrayerTimmings.class);
-                                    e1.setText(prayerTImings.getFajartime());
-                                    e2.setText(prayerTImings.getZohartime());
-                                    e3.setText(prayerTImings.getAsartime());
-                                    e4.setText(prayerTImings.getMaghribtime());
-                                    e5.setText(prayerTImings.getIshatime());
-                                    e6.setText(prayerTImings.getJumatime());
+                                    }
 
                                 }
 
-                            }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
+                                }
+                            });
 
-                            }
-                        });
+                            fireBaseQueryMosque.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        fireBaseQueryMosque.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot mosqueSnapshot : dataSnapshot.getChildren()) {
+                                        Mosque mosque = mosqueSnapshot.getValue(Mosque.class);
+                                        t7.setText(mosque.getName());
+                                    }
 
-                                //if (dataSnapshot.exists()) {
-
-                                // dataSnapshot is the "issue" node with all children with id 0
-                                for (DataSnapshot mosqueSnapshot : dataSnapshot.getChildren()) {
-                                    Mosque mosque =  mosqueSnapshot.getValue(Mosque.class);
-                                    t7.setText(mosque.getName());
                                 }
 
-                            }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-                        e1.setVisibility(View.VISIBLE);
-                        e2.setVisibility(View.VISIBLE);
-                        e3.setVisibility(View.VISIBLE);
-                        e4.setVisibility(View.VISIBLE);
-                        e5.setVisibility(View.VISIBLE);
-                        e6.setVisibility(View.VISIBLE);
-                        t1.setVisibility(View.VISIBLE);
-                        t2.setVisibility(View.VISIBLE);
-                        t3.setVisibility(View.VISIBLE);
-                        t4.setVisibility(View.VISIBLE);
-                        t5.setVisibility(View.VISIBLE);
-                        t6.setVisibility(View.VISIBLE);
-
-                    }
-                    else{
-                        t7.setText("You are not subscribed to any mosque!");
-                        e1.setVisibility(View.INVISIBLE);
-                        e2.setVisibility(View.INVISIBLE);
-                        e3.setVisibility(View.INVISIBLE);
-                        e4.setVisibility(View.INVISIBLE);
-                        e5.setVisibility(View.INVISIBLE);
-                        e6.setVisibility(View.INVISIBLE);
-                        t1.setVisibility(View.INVISIBLE);
-                        t2.setVisibility(View.INVISIBLE);
-                        t3.setVisibility(View.INVISIBLE);
-                        t4.setVisibility(View.INVISIBLE);
-                        t5.setVisibility(View.INVISIBLE);
-                        t6.setVisibility(View.INVISIBLE);
+                                }
+                            });
+                            e1.setVisibility(View.VISIBLE);
+                            e2.setVisibility(View.VISIBLE);
+                            e3.setVisibility(View.VISIBLE);
+                            e4.setVisibility(View.VISIBLE);
+                            e5.setVisibility(View.VISIBLE);
+                            e6.setVisibility(View.VISIBLE);
+                            t1.setVisibility(View.VISIBLE);
+                            t2.setVisibility(View.VISIBLE);
+                            t3.setVisibility(View.VISIBLE);
+                            t4.setVisibility(View.VISIBLE);
+                            t5.setVisibility(View.VISIBLE);
+                            t6.setVisibility(View.VISIBLE);
+                            t7.setVisibility(View.VISIBLE);
+                        }
                     }
 
                 }
-
+                else{
+                    t7.setText("You are not subscribed to any mosque!");
+                    e1.setVisibility(View.INVISIBLE);
+                    e2.setVisibility(View.INVISIBLE);
+                    e3.setVisibility(View.INVISIBLE);
+                    e4.setVisibility(View.INVISIBLE);
+                    e5.setVisibility(View.INVISIBLE);
+                    e6.setVisibility(View.INVISIBLE);
+                    t1.setVisibility(View.INVISIBLE);
+                    t2.setVisibility(View.INVISIBLE);
+                    t3.setVisibility(View.INVISIBLE);
+                    t4.setVisibility(View.INVISIBLE);
+                    t5.setVisibility(View.INVISIBLE);
+                    t6.setVisibility(View.INVISIBLE);
+                    t7.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -177,3 +183,63 @@ public class NamazAlarmFragment extends Fragment {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

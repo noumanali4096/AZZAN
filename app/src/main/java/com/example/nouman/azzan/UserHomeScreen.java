@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class UserHomeScreen extends AppCompatActivity {
 
@@ -119,7 +120,10 @@ public class UserHomeScreen extends AppCompatActivity {
         }
         if(res_id==R.id.action_logout)
         {
-
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(this,MainActivity.class);
+            startActivity(intent);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);

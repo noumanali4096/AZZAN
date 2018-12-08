@@ -107,11 +107,11 @@ public class DirectionActivity extends FragmentActivity implements OnMapReadyCal
         String str_dest = "destination=" + dest.latitude+","+dest.longitude;
         //Set value enable the sensor
         String sensor = "sensor=false";
-        String key = "&key="+"AIzaSyDfCNEA1ib_XMDJJpCrZcLOehNVJ9kXeSs ";
+        String key = "&key="+"AIzaSyCnaNlPAu3GeOEEnu0seIuTEHrdGsvHlQg";
         //Mode for find direction
         String mode = "mode=driving";
         //Build the full param
-        String param = str_org +"&" + str_dest + "&" +key + "&" +sensor+"&" +mode;
+        String param = str_org +"&" + str_dest  + "&" +sensor+"&" +mode +key;
         //Output format
         String output = "json";
         //Create url to request

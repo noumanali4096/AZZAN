@@ -6,6 +6,7 @@ public class NikkahAppointment {
     private String time;
     private String phoneNo;
 
+
     public NikkahAppointment(){}
     public NikkahAppointment(String name, String date, String time, String phoneNo) {
         this.name = name;
