@@ -1,5 +1,6 @@
 package com.example.nouman.azzan;
 
+import android.app.LauncherActivity;
 import android.content.Intent;
 import android.location.Location;
 import android.support.v4.app.FragmentTransaction;
@@ -8,6 +9,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -33,6 +36,7 @@ public class MosqueList extends AppCompatActivity {
     Toolbar toolbar;
     double clat;
     double clong;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +49,14 @@ public class MosqueList extends AppCompatActivity {
 
         }
         listmosq = (ListView) findViewById(R.id.mosqlist);
+        listmosq.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                LauncherActivity.ListItem listItem = (LauncherActivity.ListItem) parent.getItemAtPosition(position);
+
+            }
+        });
         mosqueNTimeLists = new ArrayList<>();
         databasemosquentimming = FirebaseDatabase.getInstance().getReferenceFromUrl("https://azzan-f7f08.firebaseio.com/mosquentiming");
     }

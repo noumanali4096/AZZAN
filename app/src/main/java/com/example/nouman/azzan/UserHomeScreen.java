@@ -18,6 +18,12 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class UserHomeScreen extends AppCompatActivity {
 
@@ -37,15 +43,17 @@ public class UserHomeScreen extends AppCompatActivity {
     R.drawable.calendar};
     Toolbar toolbar;
     String third;
+    DatabaseReference databaseMosqueSub;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_home_screen);
         toolbar=(Toolbar) findViewById(R.id.toolbar);
+        databaseMosqueSub= FirebaseDatabase.getInstance().getReferenceFromUrl
+                ("https://azzan-f7f08.firebaseio.com/mosquesubscriber");
         setSupportActionBar(toolbar);
         Intent intent2 = getIntent();
-
         third = intent2.getStringExtra("UserInfo2");
        // adapter=new PagerAdapter(getSupportFragmentManager());
         if(isServicesOK()){
@@ -104,9 +112,39 @@ public class UserHomeScreen extends AppCompatActivity {
         int res_id=item.getItemId();
         if(res_id==R.id.action_nikkah)
         {
-            Intent intent=new Intent(UserHomeScreen.this,NikkahActivity.class);
-            intent.putExtra("UserPhone3",third);
-            startActivityForResult(intent,4);
+            Query fireBaseQueryMsubscriber = databaseMosqueSub.orderByChild("userPhone").equalTo(third);
+
+            fireBaseQueryMsubscriber.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot mosqueSubSnapshot : dataSnapshot.getChildren()) {
+                            MosqueSubcribe obj = mosqueSubSnapshot.getValue(MosqueSubcribe.class);
+                            String mPhone = obj.getMosquePhone();
+                            if (!mPhone.isEmpty()) {
+
+                                Intent intent=new Intent(UserHomeScreen.this,NikkahActivity.class);
+                                intent.putExtra("UserPhone3",third);
+                                intent.putExtra("mPhone",mPhone);
+                                startActivityForResult(intent,4);
+                            }
+                        }
+
+                    }
+                    else{
+                            Intent intent=new Intent(UserHomeScreen.this,NikkahActivity.class);
+                            intent.putExtra("UserPhone3",third);
+                            intent.putExtra("mPhone","");
+                            startActivityForResult(intent,4);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
         }
         if(res_id==R.id.action_Ittekaaf)
         {

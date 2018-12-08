@@ -5,14 +5,15 @@ public class NikkahAppointment {
     private String date;
     private String time;
     private String phoneNo;
-
+    private String status;
 
     public NikkahAppointment(){}
-    public NikkahAppointment(String name, String date, String time, String phoneNo) {
+    public NikkahAppointment(String name, String date, String time, String phoneNo,String s) {
         this.name = name;
         this.date = date;
         this.time = time;
         this.phoneNo = phoneNo;
+        this.status=s;
     }
 
     public String getName() {
@@ -45,5 +46,13 @@ public class NikkahAppointment {
 
     public void setPhoneNo(String phoneNo) {
         this.phoneNo = phoneNo;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

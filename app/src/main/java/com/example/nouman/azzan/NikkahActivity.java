@@ -12,8 +12,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class NikkahActivity extends AppCompatActivity {
 
@@ -21,6 +25,7 @@ public class NikkahActivity extends AppCompatActivity {
     Button b1, b2, b3;
     Toolbar toolbar;
     String fourth;
+    String mPhone;
     DatabaseReference databaseNikkah;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,7 @@ public class NikkahActivity extends AppCompatActivity {
         Intent intent2 = getIntent();
 
         fourth = intent2.getStringExtra("UserPhone3");
+        mPhone = intent2.getStringExtra("mPhone");
         databaseNikkah= FirebaseDatabase.getInstance().getReferenceFromUrl
                 ("https://azzan-f7f08.firebaseio.com/NikkahAppointment");
         name = (EditText) findViewById(R.id.editText);
@@ -67,28 +73,35 @@ public class NikkahActivity extends AppCompatActivity {
         String username =  name.getText().toString().trim();
         String s1 = date.getText().toString().trim();
         String s2 = time.getText().toString().trim();
+        String s3="pending";
 
 
-        if(!TextUtils.isEmpty(username) && !TextUtils.isEmpty(s1) && !TextUtils.isEmpty(s2))
+
+
+
+        if(!TextUtils.isEmpty(username) && !TextUtils.isEmpty(s1) && !TextUtils.isEmpty(s2) && !TextUtils.isEmpty(mPhone))
         {
-
-
-            NikkahAppointment nikkahAppointment=new NikkahAppointment(username,s1,s2,fourth);
-            databaseNikkah.child(fourth).setValue(nikkahAppointment);
+            NikkahAppointment nikkahAppointment=new NikkahAppointment(username,s1,s2,fourth,s3);
+            databaseNikkah.child(mPhone).child(fourth).setValue(nikkahAppointment);
 
             Toast.makeText(this,"Nikkah Request sent",Toast.LENGTH_LONG).show();
         }
         else {
-            if(TextUtils.isEmpty(username)){
-                name.setError("Enter name");
+            if(TextUtils.isEmpty(mPhone))
+            {
+                Toast.makeText(this,"You are not subscribed to any mosque!",Toast.LENGTH_LONG).show();
             }
-            if(TextUtils.isEmpty(s1)){
-                date.setError("Enter date");
+            else {
+                if (TextUtils.isEmpty(username)) {
+                    name.setError("Enter name");
+                }
+                if (TextUtils.isEmpty(s1)) {
+                    date.setError("Enter date");
+                }
+                if (TextUtils.isEmpty(s2)) {
+                    time.setError("Enter time");
+                }
             }
-            if(TextUtils.isEmpty(s2)){
-                time.setError("Enter time");
-            }
-
         }
     }
 }
