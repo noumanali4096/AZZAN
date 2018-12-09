@@ -18,12 +18,14 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class UserHomeScreen extends AppCompatActivity {
 
@@ -54,7 +56,7 @@ public class UserHomeScreen extends AppCompatActivity {
                 ("https://azzan-f7f08.firebaseio.com/mosquesubscriber");
         setSupportActionBar(toolbar);
         Intent intent2 = getIntent();
-        third = intent2.getStringExtra("UserInfo2");
+        third = FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber().toString();
        // adapter=new PagerAdapter(getSupportFragmentManager());
         if(isServicesOK()){
             viewPager=(ViewPager) findViewById(R.id.viewpager);
@@ -98,6 +100,11 @@ public class UserHomeScreen extends AppCompatActivity {
         pagerAdapter.addFragment(new NamazAlarmFragment(),"Alarm");
         pagerAdapter.addFragment(new HijriCalenderFragment(),"Calender");
         viewPager.setAdapter(pagerAdapter);
+        if(getIntent().getAction()!=null) {
+            if (getIntent().getAction().equals("namaztimechangged")) {
+                viewPager.setCurrentItem(2);
+            }
+        }
     }
 
     @Override
@@ -130,7 +137,6 @@ public class UserHomeScreen extends AppCompatActivity {
                                 startActivityForResult(intent,4);
                             }
                         }
-
                     }
                     else{
                             Intent intent=new Intent(UserHomeScreen.this,NikkahActivity.class);
@@ -148,9 +154,38 @@ public class UserHomeScreen extends AppCompatActivity {
         }
         if(res_id==R.id.action_Ittekaaf)
         {
-            Intent intent=new Intent(UserHomeScreen.this,IteekaafActivity.class);
-            intent.putExtra("UserPhone4",third);
-            startActivityForResult(intent,5);
+            Query fireBaseQueryMsubscriber = databaseMosqueSub.orderByChild("userPhone").equalTo(third);
+
+            fireBaseQueryMsubscriber.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot mosqueSubSnapshot : dataSnapshot.getChildren()) {
+                            MosqueSubcribe obj = mosqueSubSnapshot.getValue(MosqueSubcribe.class);
+                            String mPhone = obj.getMosquePhone();
+                            if (!mPhone.isEmpty()) {
+
+                                Intent intent=new Intent(UserHomeScreen.this,IteekaafActivity.class);
+                                intent.putExtra("UserPhone4",third);
+                                intent.putExtra("mPhone",mPhone);
+                                startActivityForResult(intent,4);
+                            }
+                        }
+                    }
+                    else{
+                        Intent intent=new Intent(UserHomeScreen.this,IteekaafActivity.class);
+                        intent.putExtra("UserPhone4",third);
+                        intent.putExtra("mPhone","");
+                        startActivityForResult(intent,4);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
         }
         if(res_id==R.id.action_shop)
         {
@@ -158,10 +193,41 @@ public class UserHomeScreen extends AppCompatActivity {
         }
         if(res_id==R.id.action_logout)
         {
-            FirebaseAuth.getInstance().signOut();
-            Intent intent = new Intent(this,MainActivity.class);
-            startActivity(intent);
-            finish();
+            Query fireBaseQueryMsubscriber = databaseMosqueSub.orderByChild("userPhone").equalTo(third);
+
+            fireBaseQueryMsubscriber.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot mosqueSubSnapshot : dataSnapshot.getChildren()) {
+                            MosqueSubcribe obj = mosqueSubSnapshot.getValue(MosqueSubcribe.class);
+                            String mPhone = obj.getMosquePhone();
+                            if (!mPhone.isEmpty()) {
+                                String topic = "mosqueTiming" + mPhone;
+                                FirebaseMessaging.getInstance().unsubscribeFromTopic(topic);
+                                FirebaseAuth.getInstance().signOut();
+                                Intent intent = new Intent(UserHomeScreen.this,MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }
+
+                    }
+                    else{
+                        FirebaseAuth.getInstance().signOut();
+                        Intent intent = new Intent(UserHomeScreen.this,MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
         }
 
         return super.onOptionsItemSelected(item);

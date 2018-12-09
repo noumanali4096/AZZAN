@@ -19,7 +19,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
         Log.d("Message", "onMessageReceived: " + remoteMessage.getData().get("message"));
-        Intent intent = new Intent(this, UserHomeScreen.class);
+        String click_action = remoteMessage.getNotification().getClickAction();
+        Intent intent = new Intent(click_action);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         String channelId = "Default";

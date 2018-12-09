@@ -22,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 public class NikkahActivity extends AppCompatActivity {
 
     EditText name,date,time;
-    Button b1, b2, b3;
+    Button  b3;
     Toolbar toolbar;
     String fourth;
     String mPhone;
@@ -47,6 +47,8 @@ public class NikkahActivity extends AppCompatActivity {
         name = (EditText) findViewById(R.id.editText);
         date = (EditText) findViewById(R.id.editText7);
         time = (EditText) findViewById(R.id.editText8);
+
+
 
         b3 = (Button) findViewById(R.id.submit_request);
         b3.setOnClickListener(new View.OnClickListener() {

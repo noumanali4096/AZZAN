@@ -2,16 +2,14 @@ package com.example.nouman.azzan;
 
 public class IttekaafAppointment {
     private String name;
-    private String startDate;
-    private String endDate;
     private String phoneNo;
+    private String status;
 
     public IttekaafAppointment(){}
-    public IttekaafAppointment(String name, String startDate, String endDate, String phoneNo) {
+    public IttekaafAppointment(String name,String phoneNo, String status) {
         this.name = name;
-        this.startDate = startDate;
-        this.endDate = endDate;
         this.phoneNo = phoneNo;
+        this.status = status;
     }
 
     public String getName() {
@@ -22,20 +20,12 @@ public class IttekaafAppointment {
         this.name = name;
     }
 
-    public String getStartDate() {
-        return startDate;
+    public String getStatus() {
+        return status;
     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getPhoneNo() {

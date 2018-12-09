@@ -44,6 +44,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -86,7 +87,7 @@ public class MosqueFragmentSolution extends Fragment implements com.google.andro
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
-        userphone= getActivity().getIntent().getStringExtra("UserInfo2");
+        userphone= FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber().toString();
         moqueFirebase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://azzan-f7f08.firebaseio.com/mosque");
         databasePrayerTiming = FirebaseDatabase.getInstance().getReferenceFromUrl
                 ("https://azzan-f7f08.firebaseio.com/prayertiming");

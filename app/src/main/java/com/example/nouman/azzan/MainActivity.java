@@ -24,6 +24,13 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
@@ -37,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     Button b1,b2;
     private FirebaseAuth mAuth;
     // [END declare_auth]
+    DatabaseReference databaseMosqueSub;
+
 
     private boolean mVerificationInProgress = false;
     private String mVerificationId;
@@ -55,7 +64,8 @@ public class MainActivity extends AppCompatActivity {
         //i1=(ImageView) findViewById(R.id.phoneicon);
         e2=(EditText) findViewById(R.id.OTP_editText);
         b2=(Button) findViewById(R.id.OTP_code_button);
-
+        databaseMosqueSub= FirebaseDatabase.getInstance().getReferenceFromUrl
+                ("https://azzan-f7f08.firebaseio.com/mosquesubscriber");
         mAuth = FirebaseAuth.getInstance();
 
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -140,6 +150,34 @@ public class MainActivity extends AppCompatActivity {
                             FirebaseUser user = task.getResult().getUser();
                             String phoneNo=e1.getText().toString().trim();
                             // [START_EXCLUDE]
+
+                            Query fireBaseQueryMsubscriber = databaseMosqueSub.orderByChild("userPhone").equalTo(phoneNo);
+
+                            fireBaseQueryMsubscriber.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                    if (dataSnapshot.exists()) {
+                                        for (DataSnapshot mosqueSubSnapshot : dataSnapshot.getChildren()) {
+                                            MosqueSubcribe obj = mosqueSubSnapshot.getValue(MosqueSubcribe.class);
+                                            String mPhone = obj.getMosquePhone();
+                                            if (!mPhone.isEmpty()) {
+                                                String topic = "mosqueTiming" + mPhone;
+                                                FirebaseMessaging.getInstance().subscribeToTopic(topic);
+
+                                            }
+                                        }
+
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
+
                             Intent intent=new Intent(MainActivity.this,UserVerified.class);
                             intent.putExtra("UserPhoneNo",phoneNo);
                             startActivityForResult(intent,1);

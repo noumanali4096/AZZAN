@@ -3,6 +3,7 @@ package com.example.nouman.azzan;
 import android.app.LauncherActivity;
 import android.content.Intent;
 import android.location.Location;
+import android.net.Uri;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -48,16 +49,22 @@ public class MosqueList extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         }
+        mosqueNTimeLists = new ArrayList<>();
         listmosq = (ListView) findViewById(R.id.mosqlist);
         listmosq.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                LauncherActivity.ListItem listItem = (LauncherActivity.ListItem) parent.getItemAtPosition(position);
-
+                MosqueNTime obj = mosqueNTimeLists.get(position);
+                double lon = obj.getMosque().getLongitude();
+                double lat = obj.getMosque().getLati();
+                String uri="google.navigation:q="+lat+","+lon;
+                Uri gmmIntentUri = Uri.parse(uri);
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                startActivity(mapIntent);
             }
         });
-        mosqueNTimeLists = new ArrayList<>();
         databasemosquentimming = FirebaseDatabase.getInstance().getReferenceFromUrl("https://azzan-f7f08.firebaseio.com/mosquentiming");
     }
 

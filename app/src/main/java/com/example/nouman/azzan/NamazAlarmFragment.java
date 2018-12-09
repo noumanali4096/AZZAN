@@ -17,6 +17,7 @@ import java.util.Calendar;
 import android.view.View.OnClickListener;
 import android.view.View;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -75,7 +76,7 @@ public class NamazAlarmFragment extends Fragment {
 
         Intent intent = getActivity().getIntent();
 
-        String phone = intent.getStringExtra("UserInfo2");
+        String phone = FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber().toString();
         databaseMosque= FirebaseDatabase.getInstance().getReferenceFromUrl
                 ("https://azzan-f7f08.firebaseio.com/mosque");
         databaseMosqueSub= FirebaseDatabase.getInstance().getReferenceFromUrl

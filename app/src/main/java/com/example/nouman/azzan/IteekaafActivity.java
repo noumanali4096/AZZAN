@@ -17,11 +17,12 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class IteekaafActivity extends AppCompatActivity {
 
-    EditText name,date,time;
-    Button b1,b2,b3;
+    EditText name;
+    Button b3;
     Toolbar toolbar;
     DatabaseReference databaseIttekaaf;
     String fifth;
+    String mPhone;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,21 +38,16 @@ public class IteekaafActivity extends AppCompatActivity {
         Intent intent2 = getIntent();
 
         fifth = intent2.getStringExtra("UserPhone4");
+        mPhone = intent2.getStringExtra("mPhone");
         databaseIttekaaf= FirebaseDatabase.getInstance().getReferenceFromUrl
                 ("https://azzan-f7f08.firebaseio.com/IttekaafAppointment");
         name=(EditText) findViewById( R.id.editText_nme);
-        date=(EditText) findViewById( R.id.editText_date);
-        time=(EditText) findViewById( R.id.editText_time);
-        // b1=(Button) findViewById( R.id.nikkah_datebutton);
-        //b2=(Button) findViewById( R.id.Nikkahtime_button);
         b3=(Button) findViewById( R.id.submit_request);
         b3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 addIttekaafAppointment();
                 name.setText("");
-                date.setText("");
-                time.setText("");
             }
         });
 
@@ -68,28 +64,25 @@ public class IteekaafActivity extends AppCompatActivity {
 
     private  void addIttekaafAppointment(){
         String username =  name.getText().toString().trim();
-        String s1 = date.getText().toString().trim();
-        String s2 = time.getText().toString().trim();
 
-
-        if(!TextUtils.isEmpty(username) && !TextUtils.isEmpty(s1) && !TextUtils.isEmpty(s2))
+        if(!TextUtils.isEmpty(username) && !TextUtils.isEmpty(mPhone) )
         {
 
-            IttekaafAppointment ittekaafAppointment=new IttekaafAppointment(username,s1,s2,fifth);
+            IttekaafAppointment ittekaafAppointment=new IttekaafAppointment(username,fifth,"pending");
 
-            databaseIttekaaf.child(fifth).setValue(ittekaafAppointment);
+            databaseIttekaaf.child(mPhone).child(fifth).setValue(ittekaafAppointment);
 
             Toast.makeText(this,"Ittekaaf Request sent",Toast.LENGTH_LONG).show();
         }
         else {
-            if(TextUtils.isEmpty(username)){
-                name.setError("Enter name");
+            if(!TextUtils.isEmpty(mPhone))
+            {
+                Toast.makeText(this,"You are not subscribed to any mosque!",Toast.LENGTH_LONG).show();
             }
-            if(TextUtils.isEmpty(s1)){
-                date.setError("Enter Start date");
-            }
-            if(TextUtils.isEmpty(s2)){
-                time.setError("Enter End date");
+            else {
+                if (TextUtils.isEmpty(username)) {
+                    name.setError("Enter name");
+                }
             }
 
         }

@@ -42,26 +42,4 @@
         android:hint="Name"
         android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/editText_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="216dp"
-        android:ems="10"
-        android:hint="Start Date"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/editText_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="232dp"
-        android:ems="10"
-        android:hint="End Date"
-        android:inputType="textPersonName" />
-
 </RelativeLayout>
