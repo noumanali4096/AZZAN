@@ -85,7 +85,7 @@ public class PrayTime {
     private double[] prayerTimesCurrent;
     private int[] offsets;
 
-    public PrayTime(String type) {
+    public PrayTime(String type,String clocktype) {
         // Initialize vars
 
         this.setCalcMethod(0);
@@ -191,7 +191,11 @@ public class PrayTime {
         methodParams.put(Integer.valueOf(this.getCustom()), Cvalues);
 
         //my code
-        this.setTimeFormat(this.Time12);
+        if(clocktype.equals("24")){
+            this.setTimeFormat(this.Time24);
+        }else {
+            this.setTimeFormat(this.Time12);
+        }
         if(type.equals("hanafi")) {
             this.setCalcMethod(this.Hanafi);
             this.setAsrJuristic(this.Hanafi);

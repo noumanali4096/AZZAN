@@ -1,6 +1,7 @@
 package com.example.nouman.azzan;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -42,6 +43,7 @@ public class NikkahActivity extends AppCompatActivity {
     int currentHour;
     int currentMinute;
     String amPm;
+    private ProgressDialog progress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -155,9 +157,14 @@ public class NikkahActivity extends AppCompatActivity {
 
         if(!TextUtils.isEmpty(username) && !TextUtils.isEmpty(s1) && !TextUtils.isEmpty(s2) && !TextUtils.isEmpty(mPhone))
         {
+            progress=new ProgressDialog(NikkahActivity.this);
+            progress.setMessage("Verifying");
+            progress.setIndeterminate(true);
+            progress.setProgress(0);
+            progress.show();
             NikkahAppointment nikkahAppointment=new NikkahAppointment(username,s1,s2,fourth,s3);
             databaseNikkah.child(mPhone).child(fourth).setValue(nikkahAppointment);
-
+            progress.hide();
             Toast.makeText(this,"Nikkah Request sent",Toast.LENGTH_LONG).show();
         }
         else {

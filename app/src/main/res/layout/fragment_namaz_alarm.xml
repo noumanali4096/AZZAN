@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/tajmahal"
+    android:orientation="vertical"
     tools:context=".NamazAlarmFragment" android:padding="50dp"
     >
 
@@ -16,168 +16,202 @@
         android:orientation="vertical"
         android:gravity="center_vertical"
         android:layout_margin="@dimen/activity_horizontal_margin">-->
-<RelativeLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    >
+
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
         android:text=""
-        android:textSize="14sp" />
+        android:textSize="20sp"
+        android:textStyle="bold"/>
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="314dp"
-        android:gravity="center_vertical">
+        android:layout_height="match_parent"
+        android:layout_marginVertical="30dp">
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:background="#F6F6F6"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
 
             <TextView
                 android:id="@+id/textView1"
-                android:layout_width="0dp"
+                android:text="FAJAR"
+                android:layout_width="1in"
                 android:layout_height="wrap_content"
-                android:layout_weight=".4"
-                android:text="FAJAR" />
+                android:layout_column="1"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="14sp"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/editText1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".4"
-                android:ems="10"
-                android:focusable="false"
-                android:inputType="time"
                 android:text=""
-                android:textAlignment="center" />
+                android:layout_width="1in"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:textColor="#000"/>
 
         </TableRow>
 
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:background="#FFFFFF"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="0dp"
+                android:text="ZOHAR"
+                android:layout_width="1in"
                 android:layout_height="wrap_content"
-                android:layout_weight=".4"
-                android:text="ZUHAR" />
+                android:layout_column="1"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="14sp"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/editText2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".4"
-                android:ems="10"
-                android:inputType="time"
                 android:text=""
-                android:textAlignment="center" />
+                android:layout_width="1in"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:textColor="#000"/>
 
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:background="#F6F6F6"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
 
             <TextView
                 android:id="@+id/textView3"
-                android:layout_width="0dp"
+                android:text="ASAR"
+                android:layout_width="1in"
                 android:layout_height="wrap_content"
-                android:layout_weight=".4"
-                android:text="ASAR" />
+                android:layout_column="1"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="14sp"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/editText3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".4"
-                android:ems="10"
-                android:inputType="time"
                 android:text=""
-                android:textAlignment="center" />
-
+                android:layout_width="1in"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:textColor="#000"/>
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:background="#FFFFFF"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
 
             <TextView
                 android:id="@+id/textView4"
-                android:layout_width="0dp"
+                android:text="MAGHRIB"
+                android:layout_width="1in"
                 android:layout_height="wrap_content"
-                android:layout_weight=".4"
-                android:text="MAGRIB" />
+                android:layout_column="1"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="14sp"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/editText4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".4"
-                android:ems="10"
-                android:inputType="time"
                 android:text=""
-                android:textAlignment="center" />
+                android:layout_width="1in"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:textColor="#000"/>
 
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:background="#F6F6F6"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
 
             <TextView
                 android:id="@+id/textView5"
-                android:layout_width="0dp"
+                android:text="ISHA"
+                android:layout_width="1in"
                 android:layout_height="wrap_content"
-                android:layout_weight=".4"
-                android:text="ISHA" />
+                android:layout_column="1"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="14sp"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/editText5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".4"
-                android:ems="10"
-                android:inputType="time"
                 android:text=""
-                android:textAlignment="center" />
+                android:layout_width="1in"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:textColor="#000"/>
 
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:background="#FFFFFF"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
 
             <TextView
                 android:id="@+id/textView6"
-                android:layout_width="0dp"
+                android:text="JUMMA"
+                android:layout_width="1in"
                 android:layout_height="wrap_content"
-                android:layout_weight=".4"
-                android:text="JUMMA" />
+                android:layout_column="1"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="14sp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/editText6"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".4"
-                android:ems="10"
-                android:inputType="time"
                 android:text=""
-                android:textAlignment="center"
-
-                />
+                android:layout_width="1in"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:textColor="#000"/>
 
         </TableRow>
     </TableLayout>
-</RelativeLayout>
    <!-- </LinearLayout>-->
-</FrameLayout>
+</LinearLayout>

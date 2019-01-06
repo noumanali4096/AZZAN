@@ -11,7 +11,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -27,7 +29,7 @@ import java.util.ArrayList;
 public class AllProductsActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-
+    Toolbar toolbar;
     ProductsAdapter productsAdapter;
     ArrayList<ProductModel> productModels;
     private DatabaseReference mDatabase;
@@ -36,6 +38,7 @@ public class AllProductsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_products);
+
 
         recyclerView= findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(AllProductsActivity.this, LinearLayout.VERTICAL,false));

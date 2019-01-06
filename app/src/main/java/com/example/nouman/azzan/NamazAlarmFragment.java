@@ -31,7 +31,7 @@ public class NamazAlarmFragment extends Fragment {
     DatabaseReference databaseMosqueSub;
     DatabaseReference databaseMosquetiming;
     DatabaseReference databaseMosque;
-    EditText e1,e2,e3,e4,e5,e6;
+    TextView e1,e2,e3,e4,e5,e6;
     TextView t7,t1,t2,t3,t4,t5,t6;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,12 +40,12 @@ public class NamazAlarmFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_namaz_alarm, container, false);
 
-        e1 = (EditText) v.findViewById(R.id.editText1);
-        e2 = (EditText) v.findViewById(R.id.editText2);
-        e3 = (EditText) v.findViewById(R.id.editText3);
-        e4 = (EditText) v.findViewById(R.id.editText4);;
-        e5 = (EditText) v.findViewById(R.id.editText5);
-        e6 = (EditText) v.findViewById(R.id.editText6);
+        e1 = (TextView) v.findViewById(R.id.editText1);
+        e2 = (TextView) v.findViewById(R.id.editText2);
+        e3 = (TextView) v.findViewById(R.id.editText3);
+        e4 = (TextView) v.findViewById(R.id.editText4);;
+        e5 = (TextView) v.findViewById(R.id.editText5);
+        e6 = (TextView) v.findViewById(R.id.editText6);
         t7 = (TextView) v.findViewById(R.id.textView7);
         t1 = (TextView) v.findViewById(R.id.textView1);
         t2 = (TextView) v.findViewById(R.id.textView2);

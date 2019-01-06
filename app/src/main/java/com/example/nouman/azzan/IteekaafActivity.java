@@ -1,5 +1,6 @@
 package com.example.nouman.azzan;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ public class IteekaafActivity extends AppCompatActivity {
     DatabaseReference databaseIttekaaf;
     String fifth;
     String mPhone;
+    private ProgressDialog progress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,15 +69,19 @@ public class IteekaafActivity extends AppCompatActivity {
 
         if(!TextUtils.isEmpty(username) && !TextUtils.isEmpty(mPhone) )
         {
-
+            progress=new ProgressDialog(IteekaafActivity.this);
+            progress.setMessage("Verifying");
+            progress.setIndeterminate(true);
+            progress.setProgress(0);
+            progress.show();
             IttekaafAppointment ittekaafAppointment=new IttekaafAppointment(username,fifth,"pending");
 
             databaseIttekaaf.child(mPhone).child(fifth).setValue(ittekaafAppointment);
-
+            progress.hide();
             Toast.makeText(this,"Ittekaaf Request sent",Toast.LENGTH_LONG).show();
         }
         else {
-            if(!TextUtils.isEmpty(mPhone))
+            if(TextUtils.isEmpty(mPhone))
             {
                 Toast.makeText(this,"You are not subscribed to any mosque!",Toast.LENGTH_LONG).show();
             }

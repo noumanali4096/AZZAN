@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,7 +43,9 @@ public class ViewProduct extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser mCurrentUser;
     private DatabaseReference orderDatabase;
-
+    private DatabaseReference addressDatabase;
+    EditText deliveryAdd;
+    Toolbar toolbar;
 
 
     @Override
@@ -50,8 +54,15 @@ public class ViewProduct extends AppCompatActivity {
 
         setContentView(R.layout.activity_view_product);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar=(Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if(getSupportActionBar()!=null)
+        {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            //getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-
+        }
+        deliveryAdd=(EditText) findViewById(R.id.delivery_address);
 
         mAuth = FirebaseAuth.getInstance();
         mCurrentUser = mAuth.getCurrentUser();
@@ -59,6 +70,7 @@ public class ViewProduct extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://azzan-f7f08.firebaseio.com/islamicproducts");
         //orderDatabase = mDatabase = FirebaseDatabase.getInstance().getReference().child("orders");
         orderDatabase=FirebaseDatabase.getInstance().getReferenceFromUrl("https://azzan-f7f08.firebaseio.com/orders");
+        addressDatabase=FirebaseDatabase.getInstance().getReferenceFromUrl("https://azzan-f7f08.firebaseio.com/address");
         mFirebaseStorage = FirebaseStorage.getInstance();
 
         final ProductModel productModel = getIntent().getParcelableExtra("data");
@@ -81,15 +93,19 @@ public class ViewProduct extends AppCompatActivity {
                 final DatabaseReference newOrder = orderDatabase.push();
 
                 String id = newOrder.getKey();
-
+               String address= deliveryAdd.getText().toString().trim();
                 //adding post contents to database reference
+                AddressModel obj=new AddressModel(mCurrentUser.getPhoneNumber(),address);
+                addressDatabase.child(mCurrentUser.getPhoneNumber()).setValue(obj);
+
                 orderDatabase.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
                         newOrder.child("quantity").setValue(Integer.toString(quantity));
                         newOrder.child("pid").setValue(productModel.pid);
-                        newOrder.child("uid").setValue(mCurrentUser.getUid());
+                        newOrder.child("phone").setValue(mCurrentUser.getPhoneNumber());
+
                         newOrder.child("created_at").setValue( new Date().getTime())
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
@@ -138,7 +154,7 @@ public class ViewProduct extends AppCompatActivity {
         displayInteger.setText("" + number);
     }
 
-    @Override
+   /* @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()){
@@ -150,5 +166,13 @@ public class ViewProduct extends AppCompatActivity {
         }
 
         return true;
+    }*/
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==android.R.id.home)
+        {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

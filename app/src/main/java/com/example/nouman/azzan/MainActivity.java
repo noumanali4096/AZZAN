@@ -1,5 +1,6 @@
 package com.example.nouman.azzan;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -42,14 +43,17 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity {
 
 
-    TextView t1,t2;
+    TextView t1,t2,t3;
     ImageView i1;
     EditText e1,e2;
     Button b1,b2;
     private FirebaseAuth mAuth;
+    String countryCode;
+    String verifyPhoneNumber;
+    String noo;
     // [END declare_auth]
     DatabaseReference databaseMosqueSub;
-
+    private ProgressDialog progress;
 
     private boolean mVerificationInProgress = false;
     private String mVerificationId;
@@ -65,9 +69,11 @@ public class MainActivity extends AppCompatActivity {
         e1=(EditText) findViewById(R.id.phoneNo_editText);
         b1=(Button) findViewById(R.id.send_code_button);
         t2=(TextView) findViewById(R.id.OTP_textView);
+        t3=(TextView) findViewById(R.id.country_code);
         //i1=(ImageView) findViewById(R.id.phoneicon);
         e2=(EditText) findViewById(R.id.OTP_editText);
         b2=(Button) findViewById(R.id.OTP_code_button);
+        countryCode=t3.getText().toString().trim();
         databaseMosqueSub= FirebaseDatabase.getInstance().getReferenceFromUrl
                 ("https://azzan-f7f08.firebaseio.com/mosquesubscriber");
         mAuth = FirebaseAuth.getInstance();
@@ -108,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 i1.setVisibility(View.GONE);
                 t1.setVisibility(View.GONE);
                 b1.setVisibility(View.GONE);
+                t3.setVisibility(View.GONE);
                 e2.setVisibility(View.VISIBLE);
                 t2.setVisibility(View.VISIBLE);
                 b2.setVisibility(View.VISIBLE);
@@ -119,15 +126,27 @@ public class MainActivity extends AppCompatActivity {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                        e1.getText().toString(),        // Phone number to verify
-                        60,                 // Timeout duration
-                        java.util.concurrent.TimeUnit.SECONDS,   // Unit of timeout
-                        MainActivity.this,               // Activity (for callback binding)
-                        mCallbacks);        // OnVerificationStateChangedCallbacks
-                // [END start_phone_auth]
+                verifyPhoneNumber=e1.getText().toString().trim();
+                noo=countryCode+verifyPhoneNumber;
+                if(isValidMobile(noo)!=true){
+                    e1.setError("invalid phone number");
+                }
+                else {
+                    progress=new ProgressDialog(MainActivity.this);
+                    progress.setMessage("Verifying");
+                    progress.setIndeterminate(true);
+                    progress.setProgress(0);
+                    progress.show();
+                    PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                            noo,        // Phone number to verify
+                            60,                 // Timeout duration
+                            java.util.concurrent.TimeUnit.SECONDS,   // Unit of timeout
+                            MainActivity.this,               // Activity (for callback binding)
+                            mCallbacks);        // OnVerificationStateChangedCallbacks
+                    // [END start_phone_auth]
 
-                mVerificationInProgress = true;
+                    mVerificationInProgress = true;
+                }
             }
         });
 
@@ -189,8 +208,8 @@ public class MainActivity extends AppCompatActivity {
                                         calendar.get(Calendar.YEAR),
                                         calendar.get(Calendar.MONTH),
                                         calendar.get(Calendar.DAY_OF_MONTH),
-                                        05,
-                                        10,
+                                        17,
+                                        40,
                                         0
                                 );
 
@@ -235,5 +254,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+    }
+    private boolean isValidMobile(String phone) {
+        return android.util.Patterns.PHONE.matcher(phone).matches();
     }
 }

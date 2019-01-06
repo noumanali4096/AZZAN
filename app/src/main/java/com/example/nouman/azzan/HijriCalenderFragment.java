@@ -106,7 +106,7 @@ public class HijriCalenderFragment extends Fragment {
         double latitude = 31.5204;
         double longitude = 74.3587;
         double timezone = 5;
-        PrayTime prayers = new PrayTime("hanafi");
+        PrayTime prayers = new PrayTime("hanafi","12");
 
         prayerTimes = prayers.getPrayerTimes(cal,
                 latitude, longitude, timezone);
