@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -172,10 +173,22 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
                                 MosqueSubcribe mosqueSubcribe = mosquesubscribeSnapshot.getValue(MosqueSubcribe.class);
                                 String topic = "mosqueTiming" + mosqueSubcribe.getMosquePhone();
                                 FirebaseMessaging.getInstance().unsubscribeFromTopic(topic);
+
+                                topic = "Nikkah"+mosqueSubcribe.getMosquePhone()+userPhone.substring(1,userPhone.length());
+                                FirebaseMessaging.getInstance().unsubscribeFromTopic(topic);
+                                topic = "Ittekaaf"+mosqueSubcribe.getMosquePhone()+userPhone.substring(1,userPhone.length());
+                                FirebaseMessaging.getInstance().unsubscribeFromTopic(topic);
+
                                 MosqueSubcribe obj = new MosqueSubcribe(mosquePhone,userPhone);
                                 databaseMosqueSubscribe.child(userPhone).setValue(obj);
                                 topic="mosqueTiming" + mosquePhone;
                                 FirebaseMessaging.getInstance().subscribeToTopic(topic);
+
+                                topic = "Nikkah"+mosquePhone+userPhone.substring(1,userPhone.length());
+                                FirebaseMessaging.getInstance().subscribeToTopic(topic);
+                                topic = "Ittekaaf"+mosquePhone+userPhone.substring(1,userPhone.length());
+                                FirebaseMessaging.getInstance().subscribeToTopic(topic);
+
                                 subscribe.setImageResource(R.drawable.fui_done_check_mark);
                             }
                         }
@@ -183,6 +196,10 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
                             MosqueSubcribe obj = new MosqueSubcribe(mosquePhone,userPhone);
                             databaseMosqueSubscribe.child(userPhone).setValue(obj);
                             String topic="mosqueTiming" + mosquePhone;
+                            FirebaseMessaging.getInstance().subscribeToTopic(topic);
+                            topic = "Nikkah"+mosquePhone+userPhone.substring(1,userPhone.length());
+                            FirebaseMessaging.getInstance().subscribeToTopic(topic);
+                            topic = "Ittekaaf"+mosquePhone+userPhone.substring(1,userPhone.length());
                             FirebaseMessaging.getInstance().subscribeToTopic(topic);
                             subscribe.setImageResource(R.drawable.fui_done_check_mark);
                         }

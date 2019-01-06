@@ -93,8 +93,10 @@ public class MosqueList extends AppCompatActivity {
                     {
                         float results[] = new float[10];
                         Location.distanceBetween(clat,clong,mosqueNTime.getMosque().getLati(),mosqueNTime.getMosque().getLongitude(),results);
-                        mosqueNTime.setDistance((int) results[0]);
-                        mosqueNTimeLists.add(mosqueNTime);
+                        if(results[0]<5000) {
+                            mosqueNTime.setDistance((int) results[0]);
+                            mosqueNTimeLists.add(mosqueNTime);
+                        }
                     }
 
                 }

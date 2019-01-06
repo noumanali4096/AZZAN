@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.os.Build;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
@@ -31,9 +32,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
-
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -148,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
                            // Log.d(TAG, "signInWithCredential:success");
 
                             FirebaseUser user = task.getResult().getUser();
-                            String phoneNo=e1.getText().toString().trim();
+                            final String phoneNo=e1.getText().toString().trim();
                             // [START_EXCLUDE]
 
                             Query fireBaseQueryMsubscriber = databaseMosqueSub.orderByChild("userPhone").equalTo(phoneNo);
@@ -164,6 +168,10 @@ public class MainActivity extends AppCompatActivity {
                                             if (!mPhone.isEmpty()) {
                                                 String topic = "mosqueTiming" + mPhone;
                                                 FirebaseMessaging.getInstance().subscribeToTopic(topic);
+                                                topic = "Nikkah"+mPhone+phoneNo.substring(1,phoneNo.length());
+                                                FirebaseMessaging.getInstance().subscribeToTopic(topic);
+                                                topic = "Ittekaaf"+mPhone+phoneNo.substring(1,phoneNo.length());
+                                                FirebaseMessaging.getInstance().subscribeToTopic(topic);
 
                                             }
                                         }
@@ -176,11 +184,28 @@ public class MainActivity extends AppCompatActivity {
 
                                 }
                             });
+                            Calendar calendar = Calendar.getInstance();
+                                calendar.set(
+                                        calendar.get(Calendar.YEAR),
+                                        calendar.get(Calendar.MONTH),
+                                        calendar.get(Calendar.DAY_OF_MONTH),
+                                        05,
+                                        10,
+                                        0
+                                );
 
+                            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                            Intent intent= new Intent(MainActivity.this,SheduleAlarm.class);
+                            PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this,0,intent,0);
+                            alarmManager.setRepeating(AlarmManager.RTC,calendar.getTimeInMillis(),
+                                    AlarmManager.INTERVAL_DAY,pendingIntent);
+                            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),
+                                    AlarmManager.INTERVAL_DAY,pendingIntent);
+                            Toast.makeText(MainActivity.this,"sheduler start",Toast.LENGTH_LONG).show();
 
-                            Intent intent=new Intent(MainActivity.this,UserVerified.class);
-                            intent.putExtra("UserPhoneNo",phoneNo);
-                            startActivityForResult(intent,1);
+                            Intent intent1=new Intent(MainActivity.this,UserVerified.class);
+                            intent1.putExtra("UserPhoneNo",phoneNo);
+                            startActivityForResult(intent1,1);
                             //startActivity(new Intent(MainActivity.this,UserVerified.class));
 
                         } else {

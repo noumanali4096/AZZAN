@@ -58,6 +58,8 @@ public class UserHomeScreen extends AppCompatActivity {
         Intent intent2 = getIntent();
         third = FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber().toString();
        // adapter=new PagerAdapter(getSupportFragmentManager());
+
+
         if(isServicesOK()){
             viewPager=(ViewPager) findViewById(R.id.viewpager);
             viewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(),UserHomeScreen.this));
@@ -189,7 +191,8 @@ public class UserHomeScreen extends AppCompatActivity {
         }
         if(res_id==R.id.action_shop)
         {
-
+            Intent intent=new Intent(UserHomeScreen.this,AllProductsActivity.class);
+            startActivity(intent);
         }
         if(res_id==R.id.action_logout)
         {
@@ -205,6 +208,10 @@ public class UserHomeScreen extends AppCompatActivity {
                             String mPhone = obj.getMosquePhone();
                             if (!mPhone.isEmpty()) {
                                 String topic = "mosqueTiming" + mPhone;
+                                FirebaseMessaging.getInstance().unsubscribeFromTopic(topic);
+                                topic = "Nikkah"+mPhone+third.substring(1,third.length());
+                                FirebaseMessaging.getInstance().unsubscribeFromTopic(topic);
+                                topic = "Ittekaaf"+mPhone+third.substring(1,third.length());
                                 FirebaseMessaging.getInstance().unsubscribeFromTopic(topic);
                                 FirebaseAuth.getInstance().signOut();
                                 Intent intent = new Intent(UserHomeScreen.this,MainActivity.class);

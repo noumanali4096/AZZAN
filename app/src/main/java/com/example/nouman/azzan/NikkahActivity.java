@@ -1,15 +1,20 @@
 package com.example.nouman.azzan;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -19,6 +24,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class NikkahActivity extends AppCompatActivity {
 
     EditText name,date,time;
@@ -27,6 +36,12 @@ public class NikkahActivity extends AppCompatActivity {
     String fourth;
     String mPhone;
     DatabaseReference databaseNikkah;
+    TimePickerDialog timePickerDialog;
+    DatePickerDialog picker;
+    Calendar calendar;
+    int currentHour;
+    int currentMinute;
+    String amPm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +63,64 @@ public class NikkahActivity extends AppCompatActivity {
         date = (EditText) findViewById(R.id.editText7);
         time = (EditText) findViewById(R.id.editText8);
 
+        time.setFocusable(false);
+        time.setClickable(true);
+        time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                calendar = Calendar.getInstance();
+                currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+                currentMinute = calendar.get(Calendar.MINUTE);
+
+                timePickerDialog = new TimePickerDialog(NikkahActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
+                        if (hourOfDay >= 12) {
+                            if(hourOfDay > 12) {
+                                hourOfDay = hourOfDay - 12;
+                            }
+                            amPm = "PM";
+                        } else {
+                            if(hourOfDay == 0) {
+                                hourOfDay = 12;
+                            }
+
+                            amPm = "AM";
+                        }
+                        time.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
+                    }
+                }, currentHour, currentMinute, false);
+
+                timePickerDialog.show();
+            }
+        });
+
+
+
+
+        date.setFocusable(false);
+        date.setClickable(true);
+        date.setInputType(InputType.TYPE_NULL);
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar cldr = Calendar.getInstance();
+                int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
+                // date picker dialog
+                picker = new DatePickerDialog(NikkahActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                monthOfYear=monthOfYear+1;
+                                date.setText(String.format("%02d/%02d",dayOfMonth, monthOfYear)  + "/" + year);
+                            }
+                        }, year, month, day);
+                picker.show();
+            }
+        });
 
         b3 = (Button) findViewById(R.id.submit_request);
         b3.setOnClickListener(new View.OnClickListener() {

@@ -20,14 +20,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".LogIn" />
         <activity android:name=".UserVerified" />
         <activity android:name=".UserDetail" />
-        <activity android:name=".UserHomeScreen" >
+        <activity android:name=".UserHomeScreen">
             <intent-filter>
-                <action android:name="namaztimechangged"></action>
-                <category android:name="android.intent.category.DEFAULT"></category>
+                <action android:name="namaztimechangged" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
@@ -51,12 +52,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MosqueList"></activity>
+        <activity android:name=".MosqueList" />
+
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <activity android:name=".AllProductsActivity" />
+        <activity android:name=".ViewProduct"></activity>
+        <receiver android:name=".PlayAlarm"
+            android:enabled="true"
+            android:exported="true"
+            />
+        <receiver android:name=".SheduleAlarm"
+            android:enabled="true"
+            android:exported="true"
+            />
     </application>
 
 </manifest>

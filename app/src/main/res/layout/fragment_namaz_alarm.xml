@@ -55,7 +55,7 @@
                 android:ems="10"
                 android:focusable="false"
                 android:inputType="time"
-                android:text="@string/fajar"
+                android:text=""
                 android:textAlignment="center" />
 
         </TableRow>
@@ -79,7 +79,7 @@
                 android:layout_weight=".4"
                 android:ems="10"
                 android:inputType="time"
-                android:text="@string/zuhar"
+                android:text=""
                 android:textAlignment="center" />
 
         </TableRow>
@@ -102,7 +102,7 @@
                 android:layout_weight=".4"
                 android:ems="10"
                 android:inputType="time"
-                android:text="@string/asar"
+                android:text=""
                 android:textAlignment="center" />
 
         </TableRow>
@@ -125,7 +125,7 @@
                 android:layout_weight=".4"
                 android:ems="10"
                 android:inputType="time"
-                android:text="@string/magrib"
+                android:text=""
                 android:textAlignment="center" />
 
         </TableRow>
@@ -148,7 +148,7 @@
                 android:layout_weight=".4"
                 android:ems="10"
                 android:inputType="time"
-                android:text="@string/isha"
+                android:text=""
                 android:textAlignment="center" />
 
         </TableRow>
@@ -171,7 +171,7 @@
                 android:layout_weight=".4"
                 android:ems="10"
                 android:inputType="time"
-                android:text="@string/juma"
+                android:text=""
                 android:textAlignment="center"
 
                 />

@@ -27,9 +27,10 @@ public class UserVerified extends AppCompatActivity {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(UserVerified.this,UserDetail.class);
+                Intent intent=new Intent(UserVerified.this,UserHomeScreen.class);
                 intent.putExtra("UserPhoneInfo",first);
                 startActivityForResult(intent,2);
+                finish();
             }
         });
     }
