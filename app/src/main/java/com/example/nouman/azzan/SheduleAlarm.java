@@ -24,6 +24,9 @@ public class SheduleAlarm extends BroadcastReceiver  {
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        MediaPlayer mediaPlayer = MediaPlayer.create(context,R.raw.azan1);
+        mediaPlayer.start();
+
         Date now = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(now);
@@ -34,115 +37,61 @@ public class SheduleAlarm extends BroadcastReceiver  {
         PrayTime prayers = new PrayTime("hanafi","24");
 
         prayerTimes = prayers.getPrayerTimes(cal,
-                latitude, longitude, timezone);
+               latitude, longitude, timezone);
         prayerNames = prayers.getTimeNames();
+        AlarmManager mgrAlarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        ArrayList<PendingIntent> intentArray = new ArrayList<PendingIntent>();
 
-        String timme = prayerTimes.get(0);
-        String[] time = timme.split(":");
-        int h = Integer.parseInt(time[0].trim());
-        int m = Integer.parseInt(time[1].trim());
+        for(int i = 0; i < prayerTimes.size(); ++i)
+        {
+            if(i != 1 && i !=4){
+                String timme = prayerTimes.get(i);
+                String[] time = timme.split(":");
+                int h = Integer.parseInt(time[0].trim());
+                int m = Integer.parseInt(time[1].trim());
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(
+                        cal.get(Calendar.YEAR),
+                        cal.get(Calendar.MONTH),
+                        cal.get(Calendar.DAY_OF_MONTH),
+                        h,
+                        m,
+                        0
+                );
+                Intent mintent = new Intent(context, PlayAlarm.class);
+                if(i==0) {
+                    mintent.putExtra("namaz", "Fajar at: " + timme);
+                }
+                else if(i==2) {
+                    mintent.putExtra("namaz", "Zohar at: " + timme);
+                }
+                else if(i==3) {
+                    mintent.putExtra("namaz", "Asar at: " + timme);
+                }
+                else if(i==5) {
+                        mintent.putExtra("namaz", "Maghrib at: " + timme);
+                }
+                else if(i==6) {
+                    mintent.putExtra("namaz", "Maghrib at: " + timme);
+                }
+                // Loop counter `i` is used as a `requestCode`
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, i, mintent, 0);
+                // Single alarms in 1, 2, ..., 10 minutes (in `i` minutes)
+                mgrAlarm.set(AlarmManager.RTC,cal.getTimeInMillis(),
+                        pendingIntent);
+                mgrAlarm.set(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),
+                        pendingIntent);
 
-        cal.set(
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH),
-                h,
-                m,
-                0
-        );
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent myintent = new Intent(context, PlayAlarm.class);
-        myintent.putExtra("namaz","Fajar at: "+timme);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, myintent, 0);
-        alarmManager.set(AlarmManager.RTC, cal.getTimeInMillis(), pendingIntent);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
-
-
-
-        timme = prayerTimes.get(2);
-        time = timme.split(":");
-        h = Integer.parseInt(time[0].trim());
-        m = Integer.parseInt(time[1].trim());
-
-        cal.set(
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH),
-                h,
-                m,
-                0
-        );
-        AlarmManager alarmManager1 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent myintent1 = new Intent(context, PlayAlarm.class);
-        myintent1.putExtra("namaz","Zohar at: "+timme);
-        PendingIntent pendingIntent1 = PendingIntent.getBroadcast(context, 0, myintent1, 0);
-        alarmManager1.set(AlarmManager.RTC, cal.getTimeInMillis(), pendingIntent1);
-        alarmManager1.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent1);
-
-        timme = prayerTimes.get(3);
-        time = timme.split(":");
-        h = Integer.parseInt(time[0].trim());
-        m = Integer.parseInt(time[1].trim());
-
-        cal.set(
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH),
-                h,
-                m,
-                0
-        );
-        AlarmManager alarmManager2 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent myintent2 = new Intent(context, PlayAlarm.class);
-        myintent2.putExtra("namaz","Asar at: "+timme);
-        PendingIntent pendingIntent2 = PendingIntent.getBroadcast(context, 0, myintent2, 0);
-        alarmManager2.set(AlarmManager.RTC, cal.getTimeInMillis(), pendingIntent2);
-        alarmManager2.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent2);
-
-        timme = prayerTimes.get(5);
-        time = timme.split(":");
-        h = Integer.parseInt(time[0].trim());
-        m = Integer.parseInt(time[1].trim());
-
-        cal.set(
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH),
-                h,
-                m,
-                0
-        );
-        AlarmManager alarmManager3 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent myintent3 = new Intent(context, PlayAlarm.class);
-        myintent3.putExtra("namaz","Maghrib at: "+timme);
-        PendingIntent pendingIntent3 = PendingIntent.getBroadcast(context, 0, myintent3, 0);
-        alarmManager3.set(AlarmManager.RTC, cal.getTimeInMillis(), pendingIntent3);
-        alarmManager3.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent3);
+                intentArray.add(pendingIntent);
+            }
+        }
 
 
 
-        timme = prayerTimes.get(6);
-        time = timme.split(":");
-        h = Integer.parseInt(time[0].trim());
-        m = Integer.parseInt(time[1].trim());
 
-        cal.set(
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH),
-                h,
-                m,
-                0
-        );
-        AlarmManager alarmManager4 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent myintent4 = new Intent(context, PlayAlarm.class);
-        myintent4.putExtra("namaz","Isha at: "+timme);
-        PendingIntent pendingIntent4 = PendingIntent.getBroadcast(context, 0, myintent4, 0);
-        alarmManager4.set(AlarmManager.RTC, cal.getTimeInMillis(), pendingIntent4);
-        alarmManager4.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent4);
 
         /*
-        String timme = "15:45";
+        String timme = "12:09";
         String[] time = timme.split(":");
         int h = Integer.parseInt(time[0].trim());
         int m = Integer.parseInt(time[1].trim());
@@ -157,7 +106,7 @@ public class SheduleAlarm extends BroadcastReceiver  {
         );
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent myintent = new Intent(context, PlayAlarm.class);
-        myintent.putExtra("namaz","Isha at: 07:30 am");
+        myintent.putExtra("namaz","Zohar at: 12:09 pm");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, myintent, 0);
         alarmManager.set(AlarmManager.RTC, cal.getTimeInMillis(), pendingIntent);
         alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);

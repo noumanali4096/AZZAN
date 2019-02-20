@@ -23,8 +23,6 @@ public class PlayAlarm extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if(currentUser!=null) {
             MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.azan1);
             mediaPlayer.start();
 
@@ -34,7 +32,7 @@ public class PlayAlarm extends BroadcastReceiver {
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent1, PendingIntent.FLAG_ONE_SHOT);
             String channelId = "Default";
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId)
-                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setSmallIcon(R.drawable.ic_launcher)
                     .setContentTitle("AZAAN ALARAM")
                     .setContentText(msg).setAutoCancel(true).setContentIntent(pendingIntent);
             NotificationManager manager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
@@ -44,6 +42,5 @@ public class PlayAlarm extends BroadcastReceiver {
             }
             int notificationId = (int) System.currentTimeMillis();
             manager.notify(notificationId, builder.build());
-        }
     }
 }

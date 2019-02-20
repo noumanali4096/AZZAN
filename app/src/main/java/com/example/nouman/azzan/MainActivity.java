@@ -37,8 +37,8 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -146,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
                     // [END start_phone_auth]
 
                     mVerificationInProgress = true;
+                    progress.hide();
                 }
             }
         });
@@ -174,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
                             final String phoneNo=e1.getText().toString().trim();
                             // [START_EXCLUDE]
 
-                            Query fireBaseQueryMsubscriber = databaseMosqueSub.orderByChild("userPhone").equalTo(phoneNo);
+                            Query fireBaseQueryMsubscriber = databaseMosqueSub.orderByChild("userPhone").equalTo(noo);
 
                             fireBaseQueryMsubscriber.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
@@ -187,9 +188,9 @@ public class MainActivity extends AppCompatActivity {
                                             if (!mPhone.isEmpty()) {
                                                 String topic = "mosqueTiming" + mPhone;
                                                 FirebaseMessaging.getInstance().subscribeToTopic(topic);
-                                                topic = "Nikkah"+mPhone+phoneNo.substring(1,phoneNo.length());
+                                                topic = "Nikkah"+mPhone+noo.substring(1,noo.length());
                                                 FirebaseMessaging.getInstance().subscribeToTopic(topic);
-                                                topic = "Ittekaaf"+mPhone+phoneNo.substring(1,phoneNo.length());
+                                                topic = "Ittekaaf"+mPhone+noo.substring(1,noo.length());
                                                 FirebaseMessaging.getInstance().subscribeToTopic(topic);
 
                                             }
@@ -208,20 +209,18 @@ public class MainActivity extends AppCompatActivity {
                                         calendar.get(Calendar.YEAR),
                                         calendar.get(Calendar.MONTH),
                                         calendar.get(Calendar.DAY_OF_MONTH),
-                                        17,
-                                        40,
+                                        10,
+                                        20,
                                         0
                                 );
 
                             AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
                             Intent intent= new Intent(MainActivity.this,SheduleAlarm.class);
-                            PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this,0,intent,0);
+                            PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this,10,intent,0);
                             alarmManager.setRepeating(AlarmManager.RTC,calendar.getTimeInMillis(),
                                     AlarmManager.INTERVAL_DAY,pendingIntent);
                             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),
                                     AlarmManager.INTERVAL_DAY,pendingIntent);
-                            Toast.makeText(MainActivity.this,"sheduler start",Toast.LENGTH_LONG).show();
-
                             Intent intent1=new Intent(MainActivity.this,UserVerified.class);
                             intent1.putExtra("UserPhoneNo",phoneNo);
                             startActivityForResult(intent1,1);
